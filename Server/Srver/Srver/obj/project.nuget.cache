@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "Lo3TxJusuPM=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Богдан\\Desktop\\Repository\\multipleerCourse\\Server\\Srver\\Srver\\Srver.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Богдан\\.nuget\\packages\\litenetlib\\1.2.0\\litenetlib.1.2.0.nupkg.sha512"
+  ],
+  "logs": []
+}
