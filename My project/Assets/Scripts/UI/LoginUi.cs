@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Windows;
 using Zenject;
 
 public class LoginUi : MonoBehaviour
@@ -17,6 +15,7 @@ public class LoginUi : MonoBehaviour
     [SerializeField] TMP_InputField passwordInput;
     [SerializeField] GameObject userNameError;
     [SerializeField] GameObject passwordError;
+    [SerializeField] GameObject loading;
 
     string username;
     string password;
@@ -27,7 +26,11 @@ public class LoginUi : MonoBehaviour
     {
         usernameInput.onValueChanged.AddListener(UpdateUsername);
         passwordInput.onValueChanged.AddListener(UpdatePassword);
+        loginButton.onClick.AddListener(Login);
     }
+
+    private void OnDestroy() => loginButton.onClick.RemoveListener(Login);
+
 
     void UpdateUsername(string value)
     {
@@ -44,13 +47,26 @@ public class LoginUi : MonoBehaviour
         ValidateAndUpdateUI();
     }
 
-    bool InputValidate(GameObject error,string input,int lengt,bool regex)
+    void ValidateAndUpdateUI() => loginButton.interactable = userNameValidate && passwordValidate;
+
+    void Login()
+    {
+        loginButton.interactable = false;
+        loading.SetActive(true);
+        client.Connect();
+
+        LoginAsync().Forget();
+    }
+
+    async UniTask LoginAsync()
+    {
+        await UniTask.Yield();
+    }
+
+    bool InputValidate(GameObject error, string input, int lengt, bool regex)
     {
         bool validate = (!string.IsNullOrWhiteSpace(input) && input.Length <= lengt) && regex;
         error.SetActive(!validate);
         return validate;
     }
-
-
-    void ValidateAndUpdateUI() => loginButton.interactable = userNameValidate && passwordValidate;
 }

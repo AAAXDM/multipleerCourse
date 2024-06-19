@@ -542,7 +542,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5567299509914760843, guid: 616142a430018194aa69ad4e80ae6684, type: 3}
       propertyPath: m_Name
-      value: LogiUI
+      value: LoginUI
       objectReference: {fileID: 0}
     - target: {fileID: 7257788707365972311, guid: 616142a430018194aa69ad4e80ae6684, type: 3}
       propertyPath: m_Pivot.x
