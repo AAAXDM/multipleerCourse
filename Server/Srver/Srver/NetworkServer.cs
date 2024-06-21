@@ -1,7 +1,9 @@
 ﻿using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using LiteNetLib;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using NetworkShared;
 
 namespace Srver
 {
@@ -9,11 +11,15 @@ namespace Srver
     {
         Dictionary<int, NetPeer> connections;
         NetManager netManager;
+        ILogger<NetworkServer> logger;
+        IServiceProvider provider;
         int port = 9050;
         int disconnectTimeout = 100000;
 
-        public NetworkServer() 
+        public NetworkServer(ILogger<NetworkServer> logger, IServiceProvider provider) 
         {
+            this.logger = logger;
+            this.provider = provider;
             connections = new ();
 
             netManager = new(this)
@@ -52,8 +58,21 @@ namespace Srver
 
         public void OnNetworkReceive(NetPeer peer, NetPacketReader reader, byte channelNumber, DeliveryMethod deliveryMethod)
         {
-            var data = Encoding.UTF8.GetString(reader.RawData);
-            Console.WriteLine(data);
+            using(var scope = provider.CreateScope())
+            {
+                try
+                {
+                    PacketType packetType = (PacketType)reader.GetByte();
+                    INetPacket packet = ResolvePacket(packetType, reader);
+                    IPacketHandler handler = ResolveHandler(packetType);
+                    handler.Handle(packet, peer.Id);
+                    reader.Recycle();
+                }
+                catch (Exception ex)
+                {
+                    logger.LogError(ex,"Error");
+                }
+            }
         }
 
         public void OnNetworkReceiveUnconnected(IPEndPoint remoteEndPoint, NetPacketReader reader, UnconnectedMessageType messageType)
@@ -69,6 +88,22 @@ namespace Srver
         {
             request.Accept();
             Console.WriteLine($"Incoming connection from {request.RemoteEndPoint}");
+        }
+
+        public IPacketHandler ResolveHandler(PacketType packetType)
+        {
+            var registry = provider.GetRequiredService<HandlerRegistry>();
+            Type type = registry.Handlers[packetType];
+            return (IPacketHandler) provider.GetRequiredService(type);
+        }
+
+        INetPacket ResolvePacket(PacketType packetType, NetPacketReader reader)
+        {
+            PacketRegistry packetRegistry = provider.GetRequiredService<PacketRegistry>();
+            var type = packetRegistry.PacketTypes[packetType];
+            var packet  = (INetPacket)Activator.CreateInstance(type);
+            packet.Deserialize(reader);
+            return packet;
         }
     }
 }
