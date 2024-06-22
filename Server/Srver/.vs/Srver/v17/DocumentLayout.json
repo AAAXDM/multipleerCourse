@@ -88,7 +88,7 @@
               "RelativeDocumentMoniker": "Srver\\NetworkServer.cs",
               "ToolTip": "C:\\Users\\\u0411\u043E\u0433\u0434\u0430\u043D\\Desktop\\Repository\\multipleerCourse\\Server\\Srver\\Srver\\NetworkServer.cs",
               "RelativeToolTip": "Srver\\NetworkServer.cs",
-              "ViewState": "AQIAACYAAAAAAAAAAAA8wDQAAAAMAAAA",
+              "ViewState": "AQIAACcAAAAAAAAAAAAmwDQAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-19T11:08:26.08Z",
               "EditorCaption": ""
@@ -103,8 +103,7 @@
               "RelativeToolTip": "Srver\\UsersManager.cs",
               "ViewState": "AQIAAA0AAAAAAAAAAAAYwCwAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-20T16:12:28.192Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-20T16:12:28.192Z"
             },
             {
               "$type": "Document",
@@ -116,8 +115,7 @@
               "RelativeToolTip": "Srver\\NetworkShared\\Packets\\ClientServer\\NetauthRequest.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAXAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-20T18:14:24.014Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-20T18:14:24.014Z"
             },
             {
               "$type": "Document",
@@ -129,8 +127,7 @@
               "RelativeToolTip": "Srver\\NetworkShared\\NetworkShared.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAcAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-20T18:12:40.084Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-20T18:12:40.084Z"
             },
             {
               "$type": "Document",
@@ -142,8 +139,7 @@
               "RelativeToolTip": "Srver\\NetworkShared\\Atributes\\HandlerRegisterAtribute.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-20T18:11:34.382Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-20T18:11:34.382Z"
             },
             {
               "$type": "Document",
@@ -155,8 +151,7 @@
               "RelativeToolTip": "Srver\\NetworkShared\\Registres\\PacketRegistry.cs",
               "ViewState": "AQIAAAIAAAAAAAAAAAAYwCEAAAA3AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-21T07:04:16.232Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-21T07:04:16.232Z"
             },
             {
               "$type": "Document",
@@ -168,8 +163,7 @@
               "RelativeToolTip": "Srver\\DbContext\\ServerDbContext.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAWwAwAAABWAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-20T12:40:50.516Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-20T12:40:50.516Z"
             },
             {
               "$type": "Document",
@@ -181,8 +175,7 @@
               "RelativeToolTip": "Srver\\Entities\\User.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAuwAQAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-20T12:43:02.56Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-20T12:43:02.56Z"
             },
             {
               "$type": "Document",
@@ -194,8 +187,7 @@
               "RelativeToolTip": "Srver\\ServerConnection.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAuwAQAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-20T18:33:17.742Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-20T18:33:17.742Z"
             },
             {
               "$type": "Document",
@@ -207,8 +199,7 @@
               "RelativeToolTip": "Srver\\PacketHandlers\\AuthRequestHandler.cs",
               "ViewState": "AQIAAAsAAAAAAAAAAAAuwCAAAAAiAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-20T11:25:47.331Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-20T11:25:47.331Z"
             },
             {
               "$type": "Document",
@@ -220,8 +211,7 @@
               "RelativeToolTip": "Srver\\NetworkShared\\Packets\\ServerClient\\OnAuthFailed.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAVAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-21T14:13:43.579Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-21T14:13:43.579Z"
             },
             {
               "$type": "Document",
@@ -233,8 +223,7 @@
               "RelativeToolTip": "Srver\\NetworkShared\\Packets\\ServerClient\\OnServerStatus.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAjAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-22T10:02:54.798Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-22T10:02:54.798Z"
             },
             {
               "$type": "Document",
@@ -246,8 +235,7 @@
               "RelativeToolTip": "Srver\\Extentions\\ServiceCollectionsExtention.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-22T10:18:29.711Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-22T10:18:29.711Z"
             },
             {
               "$type": "Document",
@@ -259,8 +247,7 @@
               "RelativeToolTip": "Srver\\NetworkShared\\Packets\\ServerClient\\OnAuth.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAVAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-21T14:09:05.796Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-21T14:09:05.796Z"
             },
             {
               "$type": "Document",
@@ -272,8 +259,7 @@
               "RelativeToolTip": "Srver\\Program.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAEAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-19T11:07:30.741Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-19T11:07:30.741Z"
             },
             {
               "$type": "Document",
@@ -285,8 +271,7 @@
               "RelativeToolTip": "Srver\\NetworkShared\\Registres\\HandlerRegistry.cs",
               "ViewState": "AQIAAAgAAAAAAAAAAAAAwCAAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-20T18:12:26.256Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-20T18:12:26.256Z"
             },
             {
               "$type": "Document",
