@@ -10,7 +10,7 @@ namespace Srver
         public ServerDbContext() => Database.EnsureCreated();
 
         protected override void OnConfiguring(DbContextOptionsBuilder options) =>       
-            options.UseSqlServer("Data Source=(LocalDB)\\mssqllocaldb; DataBase=Users;Persist Security Info=false; MultipleActiveResultSets=True; Trusted_Connection=True;");
+            options.UseSqlServer("Data Source=(LocalDB)\\mssqllocaldb; DataBase=Users1;Persist Security Info=false; MultipleActiveResultSets=True; Trusted_Connection=True;");
         
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) =>

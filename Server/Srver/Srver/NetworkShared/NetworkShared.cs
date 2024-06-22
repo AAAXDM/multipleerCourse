@@ -11,7 +11,9 @@ namespace NetworkShared
         #endregion
 
         #region ServerClient
-        Onauth = 100
+        OnAuth = 100,
+        OnAuthFailed = 101,
+        OnServerStatus = 102
         #endregion
     }
 

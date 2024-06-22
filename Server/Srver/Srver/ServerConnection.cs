@@ -2,7 +2,7 @@
 
 namespace Srver
 {
-    internal class ServerConnection
+    public class ServerConnection
     {
         public int ConnectionId { get; set; }
 

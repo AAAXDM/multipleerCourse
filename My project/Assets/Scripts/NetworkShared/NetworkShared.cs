@@ -1,7 +1,5 @@
 using LiteNetLib.Utils;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+
 
 namespace NetworkShared
 {
@@ -9,11 +7,13 @@ namespace NetworkShared
     {
         #region ClientServer
         Invalid = 0,
-        AuthRequest =1, 
+        AuthRequest = 1, 
         #endregion
 
         #region ServerClient
-        Onauth = 100
+        OnAuth = 100,
+        OnAuthFailed = 101,
+        OnServerStatus = 102
         #endregion
     }
 
@@ -26,5 +26,10 @@ namespace NetworkShared
     public interface INetPacket : INetSerializable
     {
         PacketType Type { get; }
+    }
+
+    public interface IPacketHandler
+    {
+        void Handle(INetPacket packet, int connectionId);
     }
 }

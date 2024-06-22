@@ -8,9 +8,11 @@ namespace Srver.PacketHandlers
     { 
         readonly ILogger logger;
         readonly UsersManager manager;
+        NetworkServer server;
 
-        public AuthRequestHandler(ILogger<AuthRequestHandler> logger, UsersManager usersManager) 
+        public AuthRequestHandler(ILogger<AuthRequestHandler> logger, UsersManager usersManager, NetworkServer server) 
         { 
+            this.server = server;
             this.logger = logger;
             manager = usersManager;
         }
@@ -18,14 +20,33 @@ namespace Srver.PacketHandlers
         public void Handle(INetPacket packet, int connectionId)
         {
             var message = (NetAuthRequest)packet;
-            bool isHandeled;
+            INetPacket requestMessage;
+            bool sucsess;
+
+
             if (message.RequestType == AuthRequestType.Register)
             {
-                isHandeled = manager.Register(connectionId, message.Username, message.Password);
+                sucsess = manager.Register(connectionId, message.Username, message.Password);
             }
             else
             {
-                isHandeled = manager.LogIn(connectionId, message.Username, message.Password);
+                sucsess = manager.LogIn(connectionId, message.Username, message.Password);
+            }
+
+            requestMessage = sucsess ? new OnAuth() : new OnAuthFailed();
+            if (sucsess) NotiFyAnotherPlayers(connectionId);
+            server.SendToClient(connectionId, requestMessage);
+        }
+
+        void NotiFyAnotherPlayers(int excludedPlayerId)
+        {
+            OnServerStatus message = new();
+
+            int[] ids = manager.GetOverIds(excludedPlayerId);
+
+            foreach(var connectionId in ids)
+            {
+                server.SendToClient(connectionId, message);
             }
         }
     }

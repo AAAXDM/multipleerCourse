@@ -2,22 +2,19 @@ using LiteNetLib.Utils;
 
 namespace NetworkShared
 {
-    public class NetAuthRequest : INetPacket
+    public struct NetAuthRequest : INetPacket
     {
         public PacketType Type => PacketType.AuthRequest;
-
         public AuthRequestType RequestType { get; private set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
 
-        public string Username { get; private set; }
-        public string Password { get; private set; }
 
-
-        public NetAuthRequest(string username, string password, AuthRequestType requestType)
+        public NetAuthRequest(string username, string password, AuthRequestType authRequest)
         {
-            RequestType = requestType;
+            RequestType = authRequest;
             Username = username;
             Password = password;
-            RequestType = requestType;
         }
 
         public void Deserialize(NetDataReader reader)

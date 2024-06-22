@@ -1,8 +1,10 @@
 using Cysharp.Threading.Tasks;
 using NetworkShared;
+using System;
 using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Zenject;
 
 public class LoginUi : MonoBehaviour
@@ -13,6 +15,7 @@ public class LoginUi : MonoBehaviour
     [SerializeField] ButtonText loginButton;
     [SerializeField] ButtonText registerButton;
     [SerializeField] ButtonText actionButton;
+    [SerializeField] Button backButton;
     [SerializeField] TMP_InputField usernameInput;
     [SerializeField] TMP_InputField passwordInput;
     [SerializeField] GameObject userNameError;
@@ -20,6 +23,7 @@ public class LoginUi : MonoBehaviour
     [SerializeField] GameObject loading;
     [SerializeField] GameObject inputObject;
     [SerializeField] GameObject startObject;
+    [SerializeField] GameObject loginError;
 
     string username;
     string password;
@@ -32,13 +36,16 @@ public class LoginUi : MonoBehaviour
     {
         usernameInput.onValueChanged.AddListener(UpdateUsername);
         passwordInput.onValueChanged.AddListener(UpdatePassword);
+        backButton.onClick.AddListener(GoBack);
         actionButton.Button.onClick.AddListener(Login);
         loginButton.Button.onClick.AddListener(ActivateLoginWindow);
         registerButton.Button.onClick.AddListener(ActivateRegisterWindow);
         client.OnServerConnected += Connect;
+
+        OnAuthFailedHandler.OnAuthFailed += ShowLoginError;
     }
 
-    private void OnDestroy()
+    void OnDestroy()
     { 
         usernameInput.onValueChanged.RemoveListener(UpdateUsername);
         passwordInput.onValueChanged.RemoveListener(UpdatePassword);
@@ -46,6 +53,7 @@ public class LoginUi : MonoBehaviour
         registerButton.Button.onClick.RemoveListener(ActivateRegisterWindow);
         actionButton.Button.onClick.RemoveListener(Login);
         client.OnServerConnected -= Connect;
+        OnAuthFailedHandler.OnAuthFailed -= ShowLoginError;
     }
 
 
@@ -94,6 +102,19 @@ public class LoginUi : MonoBehaviour
         actionButton.SetText(text);
         startObject.SetActive(false);
         inputObject.SetActive(true);
+    }
+
+    void ShowLoginError()
+    {
+        actionButton.enabled = false;
+        loading.SetActive(false);
+        loginError.SetActive(true);
+    }
+
+    void GoBack()
+    {
+        inputObject.SetActive(false);
+        startObject.SetActive(true);
     }
 
     async UniTask LoginAsync()

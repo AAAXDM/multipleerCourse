@@ -1,26 +1,28 @@
 ﻿using System.Net;
 using System.Net.Sockets;
 using LiteNetLib;
+using LiteNetLib.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NetworkShared;
 
 namespace Srver
 {
-    internal class NetworkServer : INetEventListener
+    public class NetworkServer : INetEventListener
     {
-        Dictionary<int, NetPeer> connections;
+        NetDataWriter netDataWriter = new();
         NetManager netManager;
+        UsersManager usersManager;
         ILogger<NetworkServer> logger;
         IServiceProvider provider;
         int port = 9050;
         int disconnectTimeout = 100000;
 
-        public NetworkServer(ILogger<NetworkServer> logger, IServiceProvider provider) 
+        public NetworkServer(ILogger<NetworkServer> logger, IServiceProvider provider, UsersManager usersManager) 
         {
+            this.usersManager = usersManager;
             this.logger = logger;
             this.provider = provider;
-            connections = new ();
 
             netManager = new(this)
             {
@@ -41,13 +43,20 @@ namespace Srver
 
         public void OnPeerConnected(NetPeer peer)
         {
-            connections.Add(peer.Id, peer);
+            usersManager.AddConnection(peer);
             Console.WriteLine($"Client connected to server {peer.Address}.Id{peer.Id}");
+        }
+
+        public void SendToClient(int connectionId, INetPacket message, DeliveryMethod deliveryMethod = DeliveryMethod.ReliableOrdered)
+        {
+            var peer  = usersManager.GetConnection(connectionId).Peer;
+            peer.Send(WriteSerializeble(message),deliveryMethod);
         }
 
         public void OnPeerDisconnected(NetPeer peer, DisconnectInfo disconnectInfo)
         {
-            connections.Remove(peer.Id);
+            netManager.DisconnectPeer(peer);
+            usersManager.Disconnect(peer.Id);
             Console.WriteLine($"Client disconnected to server {peer.Address}.Id{peer.Id}");
         }
 
@@ -104,6 +113,13 @@ namespace Srver
             var packet  = (INetPacket)Activator.CreateInstance(type);
             packet.Deserialize(reader);
             return packet;
+        }
+
+        NetDataWriter WriteSerializeble(INetPacket packet)
+        {
+            netDataWriter.Reset();
+            packet.Serialize(netDataWriter);
+            return netDataWriter;
         }
     }
 }
