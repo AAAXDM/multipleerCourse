@@ -23,6 +23,8 @@ namespace Srver
             SaveChanges();
         }
 
+        public int GetOnlinePlayersCount() => Users.Where(x => x.IsOnline).Count();
+
         public NetPlayerDto[] GetTopUsers(int count)
         {
             return Users.OrderByDescending(x => x.Score)
@@ -36,6 +38,16 @@ namespace Srver
                                 }
 
                         ).ToArray();
+        }
+
+        public void SetUserOffline(User user)
+        {
+            User userToOffline = Users.Where(x => x == user).FirstOrDefault();
+            if(userToOffline != null)
+            {
+                user.IsOnline = false;
+                SaveChanges();
+            }
         }
     }
 }

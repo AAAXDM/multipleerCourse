@@ -6,7 +6,7 @@ using System.Net;
 using System.Net.Sockets;
 using Zenject;
 
-public class NetworkingClient :  IInitializable, ITickable, INetEventListener
+public class NetworkingClient :  IInitializable, ITickable, IDisposable, INetEventListener
 {
     readonly NetworkingClientSettings settings;
     NetManager netManager;
@@ -25,6 +25,15 @@ public class NetworkingClient :  IInitializable, ITickable, INetEventListener
     public void Initialize() => Init();
 
     public void Tick() => netManager.PollEvents();
+
+    public void Dispose()
+    {
+        if (peer != null)
+        {
+            netManager.Stop();
+        }
+        Disconnect();
+    }
 
     void Init()
     {
@@ -87,6 +96,8 @@ public class NetworkingClient :  IInitializable, ITickable, INetEventListener
     public void OnPeerDisconnected(NetPeer peer, DisconnectInfo disconnectInfo)
     {
     }
+
+    public void Disconnect() => netManager.DisconnectAll();
 
     INetPacket ResolvePacket(PacketType packetType,NetPacketReader reader)
     {

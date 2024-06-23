@@ -6,7 +6,6 @@ namespace Srver.PacketHandlers
     [HandlerRegisterAtribute(PacketType.AuthRequest)]
     public class AuthRequestHandler : IPacketHandler
     {
-        int topPlayersCount = 8;
         readonly ILogger logger;
         readonly UsersManager manager;
         NetworkServer server;
@@ -37,24 +36,8 @@ namespace Srver.PacketHandlers
             }
 
             requestMessage = sucsess ? new OnAuth() : new OnAuthFailed();
-            if (sucsess) NotiFyAnotherPlayers(connectionId);
+            if (sucsess) server.NotiFyAnotherPlayers(connectionId);
             server.SendToClient(connectionId, requestMessage);
-        }
-
-        void NotiFyAnotherPlayers(int excludedPlayerId)
-        {
-            OnServerStatus message = new OnServerStatus
-            {
-                PlayersCount = (ushort)db.Users.Count(),
-                TopPlayers = db.GetTopUsers(topPlayersCount)
-            };
-
-            int[] ids = manager.GetOverIds(excludedPlayerId);
-
-            foreach(var connectionId in ids)
-            {
-                server.SendToClient(connectionId, message);
-            }
         }
     }
 }

@@ -27,6 +27,7 @@ namespace Srver
             ServerConnection connection = connections[peerId];
             if (connection.User != null)
             {
+                db.SetUserOffline(connection.User);
             }
             connections.Remove(peerId);
         }
@@ -70,10 +71,7 @@ namespace Srver
 
         public ServerConnection GetConnection(int connectionId) => connections[connectionId];
 
-        void AddConnection(User user, int connectionId)
-        {
-            connections[connectionId].User = user;
-        }
+        void AddConnection(User user, int connectionId) => connections[connectionId].User = user;
 
         public int[] GetOverIds(int excludedId) => connections.Keys.Where(x => x != excludedId).ToArray();
     }

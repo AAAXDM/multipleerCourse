@@ -13,13 +13,16 @@ namespace Srver
         NetDataWriter netDataWriter = new();
         NetManager netManager;
         UsersManager usersManager;
+        ServerDbContext db;
         ILogger<NetworkServer> logger;
         IServiceProvider provider;
         int port = 9050;
         int disconnectTimeout = 100000;
+        int topPlayersCount = 8;
 
-        public NetworkServer(ILogger<NetworkServer> logger, IServiceProvider provider, UsersManager usersManager) 
+        public NetworkServer(ILogger<NetworkServer> logger, IServiceProvider provider, UsersManager usersManager, ServerDbContext db) 
         {
+            this.db = db;
             this.usersManager = usersManager;
             this.logger = logger;
             this.provider = provider;
@@ -36,10 +39,7 @@ namespace Srver
             Console.WriteLine($"Server listening on port {port}");
         }
 
-        public void PollEvents()
-        {
-            netManager.PollEvents();
-        }
+        public void PollEvents() => netManager.PollEvents();
 
         public void OnPeerConnected(NetPeer peer)
         {
@@ -57,6 +57,7 @@ namespace Srver
         {
             netManager.DisconnectPeer(peer);
             usersManager.Disconnect(peer.Id);
+            NotiFyAnotherPlayers(peer.Id);
             Console.WriteLine($"Client disconnected to server {peer.Address}.Id{peer.Id}");
         }
 
@@ -104,6 +105,24 @@ namespace Srver
             var registry = provider.GetRequiredService<HandlerRegistry>();
             Type type = registry.Handlers[packetType];
             return (IPacketHandler) provider.GetRequiredService(type);
+        }
+
+        public void NotiFyAnotherPlayers(int excludedPlayerId)
+        {
+
+            OnServerStatus message = new OnServerStatus
+            {
+                PlayersCount = (ushort)db.GetOnlinePlayersCount(),
+                TopPlayers = db.GetTopUsers(topPlayersCount)
+            };
+
+            int[] ids = usersManager.GetOverIds(excludedPlayerId);
+
+            foreach (var connectionId in ids)
+            {
+                SendToClient(connectionId, message);
+            }
+            
         }
 
         INetPacket ResolvePacket(PacketType packetType, NetPacketReader reader)
