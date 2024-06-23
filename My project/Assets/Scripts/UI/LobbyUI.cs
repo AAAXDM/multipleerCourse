@@ -1,4 +1,5 @@
 using NetworkShared;
+using TMPro;
 using UnityEngine;
 using Zenject;
 
@@ -6,12 +7,18 @@ public class LobbyUI : MonoBehaviour
 {
     [Inject] NetworkingClient client;
     [SerializeField] UserUISO userUISO;
+    [SerializeField] TextMeshProUGUI usersCount;
     [SerializeField] GameObject container;
 
     void Start()
     {
         OnServerStatusRequestHandler.OnServerStatusRequest += RefreshUI;
         RequestServerStatus();
+    }
+
+    void OnDestroy()
+    {
+        OnServerStatusRequestHandler.OnServerStatusRequest -= RefreshUI;
     }
 
     void RefreshUI(OnServerStatus message)
@@ -24,6 +31,8 @@ public class LobbyUI : MonoBehaviour
             userUI.Score.text = player.Score.ToString();
             userUI.SetOnlineStatus(player.IsOnline);
         }
+
+        usersCount.text = $"{message.PlayersCount} players online";
     }
 
     void RequestServerStatus()

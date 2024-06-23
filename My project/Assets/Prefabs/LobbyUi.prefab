@@ -1101,6 +1101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   userUISO: {fileID: 11400000, guid: 56f791c35c1af3b499ba0af6f99e6270, type: 2}
+  usersCount: {fileID: 4614862485433106159}
   container: {fileID: 8096175294679551751}
 --- !u!1 &4825384947514870189
 GameObject:
