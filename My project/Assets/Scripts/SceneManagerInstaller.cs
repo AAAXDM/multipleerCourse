@@ -1,12 +1,15 @@
 using Zenject;
+using UnityEngine;
 
 public class SceneManagerInstaller : MonoInstaller<SceneManagerInstaller>
 {
+    [SerializeField] NetworkingClientSettings settings;
+
     public override void InstallBindings()
     {
-        Container.Bind<NetworkingClient>()
-             .FromComponentInHierarchy()
-             .AsSingle()
-             .NonLazy();
+        Container.BindInterfacesAndSelfTo<NetworkingClient>()
+                 .AsSingle()
+                 .WithArguments(settings)
+                 .NonLazy();
     }
 }

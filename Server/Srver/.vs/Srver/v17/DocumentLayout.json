@@ -3,28 +3,36 @@
   "WorkspaceRootPath": "C:\\Users\\\u0411\u043E\u0433\u0434\u0430\u043D\\Desktop\\Repository\\multipleerCourse\\Server\\Srver\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E6D3C778-60ED-4CC4-A257-49F9D51347FE}|Srver\\Srver.csproj|c:\\users\\\u0431\u043E\u0433\u0434\u0430\u043D\\desktop\\repository\\multipleercourse\\server\\srver\\srver\\networkserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E6D3C778-60ED-4CC4-A257-49F9D51347FE}|Srver\\Srver.csproj|solutionrelative:srver\\networkserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E6D3C778-60ED-4CC4-A257-49F9D51347FE}|Srver\\Srver.csproj|c:\\users\\\u0431\u043E\u0433\u0434\u0430\u043D\\desktop\\repository\\multipleercourse\\server\\srver\\srver\\packethandlers\\serverstatusrequesthandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E6D3C778-60ED-4CC4-A257-49F9D51347FE}|Srver\\Srver.csproj|solutionrelative:srver\\packethandlers\\serverstatusrequesthandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E6D3C778-60ED-4CC4-A257-49F9D51347FE}|Srver\\Srver.csproj|c:\\users\\\u0431\u043E\u0433\u0434\u0430\u043D\\desktop\\repository\\multipleercourse\\server\\srver\\srver\\usersmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E6D3C778-60ED-4CC4-A257-49F9D51347FE}|Srver\\Srver.csproj|solutionrelative:srver\\usersmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E6D3C778-60ED-4CC4-A257-49F9D51347FE}|Srver\\Srver.csproj|c:\\users\\\u0431\u043E\u0433\u0434\u0430\u043D\\desktop\\repository\\multipleercourse\\server\\srver\\srver\\packethandlers\\authrequesthandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E6D3C778-60ED-4CC4-A257-49F9D51347FE}|Srver\\Srver.csproj|solutionrelative:srver\\packethandlers\\authrequesthandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E6D3C778-60ED-4CC4-A257-49F9D51347FE}|Srver\\Srver.csproj|c:\\users\\\u0431\u043E\u0433\u0434\u0430\u043D\\desktop\\repository\\multipleercourse\\server\\srver\\srver\\serverconnection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E6D3C778-60ED-4CC4-A257-49F9D51347FE}|Srver\\Srver.csproj|solutionrelative:srver\\serverconnection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E6D3C778-60ED-4CC4-A257-49F9D51347FE}|Srver\\Srver.csproj|c:\\users\\\u0431\u043E\u0433\u0434\u0430\u043D\\desktop\\repository\\multipleercourse\\server\\srver\\srver\\networkshared\\packets\\serverclient\\onserverstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E6D3C778-60ED-4CC4-A257-49F9D51347FE}|Srver\\Srver.csproj|solutionrelative:srver\\networkshared\\packets\\serverclient\\onserverstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E6D3C778-60ED-4CC4-A257-49F9D51347FE}|Srver\\Srver.csproj|c:\\users\\\u0431\u043E\u0433\u0434\u0430\u043D\\desktop\\repository\\multipleercourse\\server\\srver\\srver\\dbcontext\\serverdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E6D3C778-60ED-4CC4-A257-49F9D51347FE}|Srver\\Srver.csproj|solutionrelative:srver\\dbcontext\\serverdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{E6D3C778-60ED-4CC4-A257-49F9D51347FE}|Srver\\Srver.csproj|c:\\users\\\u0431\u043E\u0433\u0434\u0430\u043D\\desktop\\repository\\multipleercourse\\server\\srver\\srver\\packethandlers\\authrequesthandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E6D3C778-60ED-4CC4-A257-49F9D51347FE}|Srver\\Srver.csproj|solutionrelative:srver\\packethandlers\\authrequesthandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E6D3C778-60ED-4CC4-A257-49F9D51347FE}|Srver\\Srver.csproj|c:\\users\\\u0431\u043E\u0433\u0434\u0430\u043D\\desktop\\repository\\multipleercourse\\server\\srver\\srver\\networkserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E6D3C778-60ED-4CC4-A257-49F9D51347FE}|Srver\\Srver.csproj|solutionrelative:srver\\networkserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{E6D3C778-60ED-4CC4-A257-49F9D51347FE}|Srver\\Srver.csproj|c:\\users\\\u0431\u043E\u0433\u0434\u0430\u043D\\desktop\\repository\\multipleercourse\\server\\srver\\srver\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E6D3C778-60ED-4CC4-A257-49F9D51347FE}|Srver\\Srver.csproj|solutionrelative:srver\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E6D3C778-60ED-4CC4-A257-49F9D51347FE}|Srver\\Srver.csproj|c:\\users\\\u0431\u043E\u0433\u0434\u0430\u043D\\desktop\\repository\\multipleercourse\\server\\srver\\srver\\usersmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E6D3C778-60ED-4CC4-A257-49F9D51347FE}|Srver\\Srver.csproj|solutionrelative:srver\\usersmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E6D3C778-60ED-4CC4-A257-49F9D51347FE}|Srver\\Srver.csproj|c:\\users\\\u0431\u043E\u0433\u0434\u0430\u043D\\desktop\\repository\\multipleercourse\\server\\srver\\srver\\serverconnection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E6D3C778-60ED-4CC4-A257-49F9D51347FE}|Srver\\Srver.csproj|solutionrelative:srver\\serverconnection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E6D3C778-60ED-4CC4-A257-49F9D51347FE}|Srver\\Srver.csproj|c:\\users\\\u0431\u043E\u0433\u0434\u0430\u043D\\desktop\\repository\\multipleercourse\\server\\srver\\srver\\networkshared\\registres\\packetregistry.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -45,10 +53,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{E6D3C778-60ED-4CC4-A257-49F9D51347FE}|Srver\\Srver.csproj|c:\\users\\\u0431\u043E\u0433\u0434\u0430\u043D\\desktop\\repository\\multipleercourse\\server\\srver\\srver\\networkshared\\networkshared.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E6D3C778-60ED-4CC4-A257-49F9D51347FE}|Srver\\Srver.csproj|solutionrelative:srver\\networkshared\\networkshared.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E6D3C778-60ED-4CC4-A257-49F9D51347FE}|Srver\\Srver.csproj|c:\\users\\\u0431\u043E\u0433\u0434\u0430\u043D\\desktop\\repository\\multipleercourse\\server\\srver\\srver\\networkshared\\packets\\serverclient\\onserverstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E6D3C778-60ED-4CC4-A257-49F9D51347FE}|Srver\\Srver.csproj|solutionrelative:srver\\networkshared\\packets\\serverclient\\onserverstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E6D3C778-60ED-4CC4-A257-49F9D51347FE}|Srver\\Srver.csproj|c:\\users\\\u0431\u043E\u0433\u0434\u0430\u043D\\desktop\\repository\\multipleercourse\\server\\srver\\srver\\networkshared\\packets\\clientserver\\netauthrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -83,6 +87,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "ServerStatusRequestHandler.cs",
+              "DocumentMoniker": "C:\\Users\\\u0411\u043E\u0433\u0434\u0430\u043D\\Desktop\\Repository\\multipleerCourse\\Server\\Srver\\Srver\\PacketHandlers\\ServerStatusRequestHandler.cs",
+              "RelativeDocumentMoniker": "Srver\\PacketHandlers\\ServerStatusRequestHandler.cs",
+              "ToolTip": "C:\\Users\\\u0411\u043E\u0433\u0434\u0430\u043D\\Desktop\\Repository\\multipleerCourse\\Server\\Srver\\Srver\\PacketHandlers\\ServerStatusRequestHandler.cs",
+              "RelativeToolTip": "Srver\\PacketHandlers\\ServerStatusRequestHandler.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAAA3AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-22T14:25:21.063Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "NetworkServer.cs",
               "DocumentMoniker": "C:\\Users\\\u0411\u043E\u0433\u0434\u0430\u043D\\Desktop\\Repository\\multipleerCourse\\Server\\Srver\\Srver\\NetworkServer.cs",
               "RelativeDocumentMoniker": "Srver\\NetworkServer.cs",
@@ -95,31 +112,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "UsersManager.cs",
-              "DocumentMoniker": "C:\\Users\\\u0411\u043E\u0433\u0434\u0430\u043D\\Desktop\\Repository\\multipleerCourse\\Server\\Srver\\Srver\\UsersManager.cs",
-              "RelativeDocumentMoniker": "Srver\\UsersManager.cs",
-              "ToolTip": "C:\\Users\\\u0411\u043E\u0433\u0434\u0430\u043D\\Desktop\\Repository\\multipleerCourse\\Server\\Srver\\Srver\\UsersManager.cs",
-              "RelativeToolTip": "Srver\\UsersManager.cs",
-              "ViewState": "AQIAAA0AAAAAAAAAAAAYwCwAAAARAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-20T16:12:28.192Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 12,
-              "Title": "NetauthRequest.cs",
-              "DocumentMoniker": "C:\\Users\\\u0411\u043E\u0433\u0434\u0430\u043D\\Desktop\\Repository\\multipleerCourse\\Server\\Srver\\Srver\\NetworkShared\\Packets\\ClientServer\\NetauthRequest.cs",
-              "RelativeDocumentMoniker": "Srver\\NetworkShared\\Packets\\ClientServer\\NetauthRequest.cs",
-              "ToolTip": "C:\\Users\\\u0411\u043E\u0433\u0434\u0430\u043D\\Desktop\\Repository\\multipleerCourse\\Server\\Srver\\Srver\\NetworkShared\\Packets\\ClientServer\\NetauthRequest.cs",
-              "RelativeToolTip": "Srver\\NetworkShared\\Packets\\ClientServer\\NetauthRequest.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAXAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-20T18:14:24.014Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
               "Title": "NetworkShared.cs",
               "DocumentMoniker": "C:\\Users\\\u0411\u043E\u0433\u0434\u0430\u043D\\Desktop\\Repository\\multipleerCourse\\Server\\Srver\\Srver\\NetworkShared\\NetworkShared.cs",
               "RelativeDocumentMoniker": "Srver\\NetworkShared\\NetworkShared.cs",
@@ -131,7 +124,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 9,
               "Title": "HandlerRegisterAtribute.cs",
               "DocumentMoniker": "C:\\Users\\\u0411\u043E\u0433\u0434\u0430\u043D\\Desktop\\Repository\\multipleerCourse\\Server\\Srver\\Srver\\NetworkShared\\Atributes\\HandlerRegisterAtribute.cs",
               "RelativeDocumentMoniker": "Srver\\NetworkShared\\Atributes\\HandlerRegisterAtribute.cs",
@@ -143,7 +136,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "PacketRegistry.cs",
               "DocumentMoniker": "C:\\Users\\\u0411\u043E\u0433\u0434\u0430\u043D\\Desktop\\Repository\\multipleerCourse\\Server\\Srver\\Srver\\NetworkShared\\Registres\\PacketRegistry.cs",
               "RelativeDocumentMoniker": "Srver\\NetworkShared\\Registres\\PacketRegistry.cs",
@@ -155,15 +148,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "ServerDbContext.cs",
               "DocumentMoniker": "C:\\Users\\\u0411\u043E\u0433\u0434\u0430\u043D\\Desktop\\Repository\\multipleerCourse\\Server\\Srver\\Srver\\DbContext\\ServerDbContext.cs",
               "RelativeDocumentMoniker": "Srver\\DbContext\\ServerDbContext.cs",
               "ToolTip": "C:\\Users\\\u0411\u043E\u0433\u0434\u0430\u043D\\Desktop\\Repository\\multipleerCourse\\Server\\Srver\\Srver\\DbContext\\ServerDbContext.cs",
               "RelativeToolTip": "Srver\\DbContext\\ServerDbContext.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAWwAwAAABWAAAA",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAuwA0AAABWAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-20T12:40:50.516Z"
+              "WhenOpened": "2024-06-20T12:40:50.516Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -173,13 +167,14 @@
               "RelativeDocumentMoniker": "Srver\\Entities\\User.cs",
               "ToolTip": "C:\\Users\\\u0411\u043E\u0433\u0434\u0430\u043D\\Desktop\\Repository\\multipleerCourse\\Server\\Srver\\Srver\\Entities\\User.cs",
               "RelativeToolTip": "Srver\\Entities\\User.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAuwAQAAAARAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAuwAkAAAAsAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-20T12:43:02.56Z"
+              "WhenOpened": "2024-06-20T12:43:02.56Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 7,
               "Title": "ServerConnection.cs",
               "DocumentMoniker": "C:\\Users\\\u0411\u043E\u0433\u0434\u0430\u043D\\Desktop\\Repository\\multipleerCourse\\Server\\Srver\\Srver\\ServerConnection.cs",
               "RelativeDocumentMoniker": "Srver\\ServerConnection.cs",
@@ -191,19 +186,57 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "AuthRequestHandler.cs",
               "DocumentMoniker": "C:\\Users\\\u0411\u043E\u0433\u0434\u0430\u043D\\Desktop\\Repository\\multipleerCourse\\Server\\Srver\\Srver\\PacketHandlers\\AuthRequestHandler.cs",
               "RelativeDocumentMoniker": "Srver\\PacketHandlers\\AuthRequestHandler.cs",
               "ToolTip": "C:\\Users\\\u0411\u043E\u0433\u0434\u0430\u043D\\Desktop\\Repository\\multipleerCourse\\Server\\Srver\\Srver\\PacketHandlers\\AuthRequestHandler.cs",
               "RelativeToolTip": "Srver\\PacketHandlers\\AuthRequestHandler.cs",
-              "ViewState": "AQIAAAsAAAAAAAAAAAAuwCAAAAAiAAAA",
+              "ViewState": "AQIAABYAAAAAAAAAAAAQwDAAAAA8AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-20T11:25:47.331Z"
+              "WhenOpened": "2024-06-20T11:25:47.331Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "OnServerStatus.cs",
+              "DocumentMoniker": "C:\\Users\\\u0411\u043E\u0433\u0434\u0430\u043D\\Desktop\\Repository\\multipleerCourse\\Server\\Srver\\Srver\\NetworkShared\\Packets\\ServerClient\\OnServerStatus.cs",
+              "RelativeDocumentMoniker": "Srver\\NetworkShared\\Packets\\ServerClient\\OnServerStatus.cs",
+              "ToolTip": "C:\\Users\\\u0411\u043E\u0433\u0434\u0430\u043D\\Desktop\\Repository\\multipleerCourse\\Server\\Srver\\Srver\\NetworkShared\\Packets\\ServerClient\\OnServerStatus.cs",
+              "RelativeToolTip": "Srver\\NetworkShared\\Packets\\ServerClient\\OnServerStatus.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABsAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-22T10:02:54.798Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 13,
+              "Title": "NetauthRequest.cs",
+              "DocumentMoniker": "C:\\Users\\\u0411\u043E\u0433\u0434\u0430\u043D\\Desktop\\Repository\\multipleerCourse\\Server\\Srver\\Srver\\NetworkShared\\Packets\\ClientServer\\NetauthRequest.cs",
+              "RelativeDocumentMoniker": "Srver\\NetworkShared\\Packets\\ClientServer\\NetauthRequest.cs",
+              "ToolTip": "C:\\Users\\\u0411\u043E\u0433\u0434\u0430\u043D\\Desktop\\Repository\\multipleerCourse\\Server\\Srver\\Srver\\NetworkShared\\Packets\\ClientServer\\NetauthRequest.cs",
+              "RelativeToolTip": "Srver\\NetworkShared\\Packets\\ClientServer\\NetauthRequest.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAXAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-20T18:14:24.014Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "UsersManager.cs",
+              "DocumentMoniker": "C:\\Users\\\u0411\u043E\u0433\u0434\u0430\u043D\\Desktop\\Repository\\multipleerCourse\\Server\\Srver\\Srver\\UsersManager.cs",
+              "RelativeDocumentMoniker": "Srver\\UsersManager.cs",
+              "ToolTip": "C:\\Users\\\u0411\u043E\u0433\u0434\u0430\u043D\\Desktop\\Repository\\multipleerCourse\\Server\\Srver\\Srver\\UsersManager.cs",
+              "RelativeToolTip": "Srver\\UsersManager.cs",
+              "ViewState": "AQIAAA0AAAAAAAAAAAAYwCwAAAARAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-20T16:12:28.192Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
               "Title": "OnAuthFailed.cs",
               "DocumentMoniker": "C:\\Users\\\u0411\u043E\u0433\u0434\u0430\u043D\\Desktop\\Repository\\multipleerCourse\\Server\\Srver\\Srver\\NetworkShared\\Packets\\ServerClient\\OnAuthFailed.cs",
               "RelativeDocumentMoniker": "Srver\\NetworkShared\\Packets\\ServerClient\\OnAuthFailed.cs",
@@ -215,19 +248,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "OnServerStatus.cs",
-              "DocumentMoniker": "C:\\Users\\\u0411\u043E\u0433\u0434\u0430\u043D\\Desktop\\Repository\\multipleerCourse\\Server\\Srver\\Srver\\NetworkShared\\Packets\\ServerClient\\OnServerStatus.cs",
-              "RelativeDocumentMoniker": "Srver\\NetworkShared\\Packets\\ServerClient\\OnServerStatus.cs",
-              "ToolTip": "C:\\Users\\\u0411\u043E\u0433\u0434\u0430\u043D\\Desktop\\Repository\\multipleerCourse\\Server\\Srver\\Srver\\NetworkShared\\Packets\\ServerClient\\OnServerStatus.cs",
-              "RelativeToolTip": "Srver\\NetworkShared\\Packets\\ServerClient\\OnServerStatus.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAjAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-22T10:02:54.798Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 10,
               "Title": "ServiceCollectionsExtention.cs",
               "DocumentMoniker": "C:\\Users\\\u0411\u043E\u0433\u0434\u0430\u043D\\Desktop\\Repository\\multipleerCourse\\Server\\Srver\\Srver\\Extentions\\ServiceCollectionsExtention.cs",
               "RelativeDocumentMoniker": "Srver\\Extentions\\ServiceCollectionsExtention.cs",
@@ -239,7 +260,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "OnAuth.cs",
               "DocumentMoniker": "C:\\Users\\\u0411\u043E\u0433\u0434\u0430\u043D\\Desktop\\Repository\\multipleerCourse\\Server\\Srver\\Srver\\NetworkShared\\Packets\\ServerClient\\OnAuth.cs",
               "RelativeDocumentMoniker": "Srver\\NetworkShared\\Packets\\ServerClient\\OnAuth.cs",
@@ -251,7 +272,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\\u0411\u043E\u0433\u0434\u0430\u043D\\Desktop\\Repository\\multipleerCourse\\Server\\Srver\\Srver\\Program.cs",
               "RelativeDocumentMoniker": "Srver\\Program.cs",
@@ -263,7 +284,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 11,
               "Title": "HandlerRegistry.cs",
               "DocumentMoniker": "C:\\Users\\\u0411\u043E\u0433\u0434\u0430\u043D\\Desktop\\Repository\\multipleerCourse\\Server\\Srver\\Srver\\NetworkShared\\Registres\\HandlerRegistry.cs",
               "RelativeDocumentMoniker": "Srver\\NetworkShared\\Registres\\HandlerRegistry.cs",
@@ -275,7 +296,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "Container.cs",
               "DocumentMoniker": "C:\\Users\\\u0411\u043E\u0433\u0434\u0430\u043D\\Desktop\\Repository\\multipleerCourse\\Server\\Srver\\Srver\\Container.cs",
               "RelativeDocumentMoniker": "Srver\\Container.cs",

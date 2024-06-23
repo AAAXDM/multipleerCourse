@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NetworkShared;
 using System.Text;
 
 namespace Srver
@@ -10,7 +11,7 @@ namespace Srver
         public ServerDbContext() => Database.EnsureCreated();
 
         protected override void OnConfiguring(DbContextOptionsBuilder options) =>       
-            options.UseSqlServer("Data Source=(LocalDB)\\mssqllocaldb; DataBase=Users1;Persist Security Info=false; MultipleActiveResultSets=True; Trusted_Connection=True;");
+            options.UseSqlServer("Data Source=(LocalDB)\\mssqllocaldb; DataBase=Users2;Persist Security Info=false; MultipleActiveResultSets=True; Trusted_Connection=True;");
         
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) =>
@@ -20,6 +21,21 @@ namespace Srver
         {
             Users.Add(user);
             SaveChanges();
+        }
+
+        public NetPlayerDto[] GetTopUsers(int count)
+        {
+            return Users.OrderByDescending(x => x.Score)
+                        .Take(count)
+                        .Select(x =>
+                                new NetPlayerDto
+                                {
+                                    Username = x.UserName, 
+                                    Score = x.Score,
+                                    IsOnline = x.IsOnline
+                                }
+
+                        ).ToArray();
         }
     }
 }

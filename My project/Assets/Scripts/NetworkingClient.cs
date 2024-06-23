@@ -4,12 +4,11 @@ using NetworkShared;
 using System;
 using System.Net;
 using System.Net.Sockets;
-using UnityEngine;
+using Zenject;
 
-public class NetworkingClient : MonoBehaviour,INetEventListener
+public class NetworkingClient :  IInitializable, ITickable, INetEventListener
 {
-    [SerializeField] int disconnectTimeout;
-    [SerializeField] int port;
+    readonly NetworkingClientSettings settings;
     NetManager netManager;
     NetPeer peer;
     NetDataWriter dataWriter;
@@ -18,9 +17,14 @@ public class NetworkingClient : MonoBehaviour,INetEventListener
 
     public event Action OnServerConnected;
 
-    void Start() => Init();
+    public NetworkingClient(NetworkingClientSettings settings)
+    {
+        this.settings = settings;
+    }
 
-    void Update() => netManager.PollEvents();
+    public void Initialize() => Init();
+
+    public void Tick() => netManager.PollEvents();
 
     void Init()
     {
@@ -29,14 +33,14 @@ public class NetworkingClient : MonoBehaviour,INetEventListener
         dataWriter = new ();
         netManager = new(this)
         {
-            DisconnectTimeout = disconnectTimeout
+            DisconnectTimeout = settings.disconnectTimeout
         };
         netManager.Start();
     }
 
     public void Connect()
     {
-        netManager.Connect("localhost", port, "");
+        netManager.Connect("localhost", settings.port, "");
     }
 
     public void SendOnServer<T>(T packet,DeliveryMethod deliveryMethod = DeliveryMethod.ReliableOrdered) where T : INetSerializable
@@ -97,4 +101,11 @@ public class NetworkingClient : MonoBehaviour,INetEventListener
         var handlerType = handlerRegistry.Handlers[packetType];
         return (IPacketHandler)Activator.CreateInstance(handlerType);
     }
+}
+
+[Serializable]
+public class NetworkingClientSettings
+{
+    public int disconnectTimeout;
+    public int port;
 }

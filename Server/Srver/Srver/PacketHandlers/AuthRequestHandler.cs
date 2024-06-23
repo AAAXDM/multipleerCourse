@@ -5,13 +5,16 @@ namespace Srver.PacketHandlers
 {
     [HandlerRegisterAtribute(PacketType.AuthRequest)]
     public class AuthRequestHandler : IPacketHandler
-    { 
+    {
+        int topPlayersCount = 8;
         readonly ILogger logger;
         readonly UsersManager manager;
         NetworkServer server;
+        ServerDbContext db;
 
-        public AuthRequestHandler(ILogger<AuthRequestHandler> logger, UsersManager usersManager, NetworkServer server) 
+        public AuthRequestHandler(ILogger<AuthRequestHandler> logger, UsersManager usersManager, NetworkServer server, ServerDbContext  db) 
         { 
+            this.db = db;
             this.server = server;
             this.logger = logger;
             manager = usersManager;
@@ -40,7 +43,11 @@ namespace Srver.PacketHandlers
 
         void NotiFyAnotherPlayers(int excludedPlayerId)
         {
-            OnServerStatus message = new();
+            OnServerStatus message = new OnServerStatus
+            {
+                PlayersCount = (ushort)db.Users.Count(),
+                TopPlayers = db.GetTopUsers(topPlayersCount)
+            };
 
             int[] ids = manager.GetOverIds(excludedPlayerId);
 
