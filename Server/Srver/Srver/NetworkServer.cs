@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NetworkShared;
 
-namespace Srver
+namespace Server
 {
     public class NetworkServer : INetEventListener
     {

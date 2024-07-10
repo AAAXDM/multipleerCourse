@@ -1,7 +1,7 @@
 ﻿using NetworkShared;
 
 
-namespace Srver.PacketHandlers
+namespace Server.PacketHandlers
 {
     [HandlerRegisterAtribute(PacketType.ServerStatusRequest)]
     public class ServerStatusRequestHandler : IPacketHandler

@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NetworkShared;
-using Srver.Extentions;
+using Server.Extentions;
 
-namespace Srver
+namespace Server
 {
     internal static class Container
     {

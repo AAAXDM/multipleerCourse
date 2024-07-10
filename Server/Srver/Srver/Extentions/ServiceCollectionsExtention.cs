@@ -3,7 +3,7 @@ using NetworkShared;
 using System.Reflection;
 
 
-namespace Srver.Extentions
+namespace Server.Extentions
 {
     public static class ServiceCollectionsExtention
     {

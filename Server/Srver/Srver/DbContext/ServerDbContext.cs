@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NetworkShared;
-using System.Text;
 
-namespace Srver
+namespace Server
 {
     public class ServerDbContext : DbContext
     {

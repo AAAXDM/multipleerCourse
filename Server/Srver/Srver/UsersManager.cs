@@ -1,6 +1,6 @@
 ﻿using LiteNetLib;
 
-namespace Srver
+namespace Server
 {
     public class UsersManager
     {

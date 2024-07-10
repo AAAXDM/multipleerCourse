@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using NetworkShared;
 
-namespace Srver.PacketHandlers
+namespace Server.PacketHandlers
 {
     [HandlerRegisterAtribute(PacketType.AuthRequest)]
     public class AuthRequestHandler : IPacketHandler

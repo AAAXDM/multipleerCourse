@@ -11,9 +11,12 @@ public class LobbyUI : MonoBehaviour
     [Inject] NetworkingClient client;
     [SerializeField] UserUISO userUISO;
     [SerializeField] TextMeshProUGUI usersCount;
+    [SerializeField] Button findOpponentBtn;
     [SerializeField] Button logOutBtn;
+    [SerializeField] Button stopButton;
+    [SerializeField] GameObject loadingContainer;
     [SerializeField] GameObject container;
-    int startsceneNumber = 0;
+    int startSceneNumber = 0;
 
     HashSet<string> users;
 
@@ -21,6 +24,8 @@ public class LobbyUI : MonoBehaviour
     {
         users = new ();
         logOutBtn.onClick.AddListener(LogOut);
+        findOpponentBtn.onClick.AddListener(FindOpponent);
+        stopButton.onClick.AddListener(StopFindingOpponent);
         OnServerStatusRequestHandler.OnServerStatusRequest += RefreshUI;
         RequestServerStatus();
     }
@@ -28,6 +33,8 @@ public class LobbyUI : MonoBehaviour
     void OnDestroy()
     {
         logOutBtn?.onClick.RemoveListener(LogOut);
+        findOpponentBtn?.onClick.RemoveListener(FindOpponent);
+        stopButton?.onClick.RemoveListener(StopFindingOpponent);
         OnServerStatusRequestHandler.OnServerStatusRequest -= RefreshUI;
     }
 
@@ -56,6 +63,16 @@ public class LobbyUI : MonoBehaviour
     void LogOut()
     {
         client.Disconnect();
-        SceneManager.LoadScene(startsceneNumber);
+        SceneManager.LoadScene(startSceneNumber);
+    }
+
+    void FindOpponent()
+    {
+        loadingContainer.SetActive(true);
+    }
+
+    void StopFindingOpponent()
+    {
+        loadingContainer.SetActive(false);
     }
 }
