@@ -1,21 +1,16 @@
-﻿using Microsoft.Extensions.Logging;
-using NetworkShared;
+﻿using NetworkShared;
 
 namespace Server.PacketHandlers
 {
     [HandlerRegisterAtribute(PacketType.AuthRequest)]
     public class AuthRequestHandler : IPacketHandler
     {
-        readonly ILogger logger;
         readonly UsersManager manager;
         NetworkServer server;
-        ServerDbContext db;
 
-        public AuthRequestHandler(ILogger<AuthRequestHandler> logger, UsersManager usersManager, NetworkServer server, ServerDbContext  db) 
+        public AuthRequestHandler(UsersManager usersManager, NetworkServer server) 
         { 
-            this.db = db;
             this.server = server;
-            this.logger = logger;
             manager = usersManager;
         }
 

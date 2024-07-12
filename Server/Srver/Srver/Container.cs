@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using NetworkShared;
 using Server.Extentions;
+using Srver;
 
 namespace Server
 {
@@ -21,6 +22,8 @@ namespace Server
             services.AddSingleton<PacketRegistry>();
             services.AddSingleton<HandlerRegistry>();
             services.AddSingleton<UsersManager>();
+            services.AddSingleton<MatchMaker>();
+            services.AddSingleton<GamesManager>();
             services.AddDbContext<ServerDbContext>();
             services.AddpacketHandlers();
         }

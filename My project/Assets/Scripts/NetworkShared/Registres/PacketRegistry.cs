@@ -29,6 +29,9 @@ namespace NetworkShared
                 .SelectMany(x => x.GetTypes())
                 .Where(p => packetType.IsAssignableFrom(p) && !p.IsInterface);
 
+
+            bool test = false;
+
             foreach(var packet in packets)
             {
                 INetPacket instance = (INetPacket)Activator.CreateInstance(packet);

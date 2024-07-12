@@ -69,10 +69,15 @@ public class LobbyUI : MonoBehaviour
     void FindOpponent()
     {
         loadingContainer.SetActive(true);
+        FindOpponentRequest message = new();
+        client.SendOnServer(message);
     }
 
     void StopFindingOpponent()
     {
         loadingContainer.SetActive(false);
+        FindOpponentRequest message = new();
+        message.NeedToStop = true;
+        client.SendOnServer(message);
     }
 }

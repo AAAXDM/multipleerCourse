@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Repositories\\multipleerCourse\\Server\\Srver\\Srver\\Srver.csproj": {}
+    "E:\\Fork\\multipleerCourse\\Server\\Srver\\Srver\\Srver.csproj": {}
   },
   "projects": {
-    "E:\\Repositories\\multipleerCourse\\Server\\Srver\\Srver\\Srver.csproj": {
+    "E:\\Fork\\multipleerCourse\\Server\\Srver\\Srver\\Srver.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Repositories\\multipleerCourse\\Server\\Srver\\Srver\\Srver.csproj",
+        "projectUniqueName": "E:\\Fork\\multipleerCourse\\Server\\Srver\\Srver\\Srver.csproj",
         "projectName": "Srver",
-        "projectPath": "E:\\Repositories\\multipleerCourse\\Server\\Srver\\Srver\\Srver.csproj",
-        "packagesPath": "C:\\Users\\Krl\\.nuget\\packages\\",
-        "outputPath": "E:\\Repositories\\multipleerCourse\\Server\\Srver\\Srver\\obj\\",
+        "projectPath": "E:\\Fork\\multipleerCourse\\Server\\Srver\\Srver\\Srver.csproj",
+        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+        "outputPath": "E:\\Fork\\multipleerCourse\\Server\\Srver\\Srver\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Krl\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -85,7 +81,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.410\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     }

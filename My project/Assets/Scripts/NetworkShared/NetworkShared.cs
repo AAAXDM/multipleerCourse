@@ -9,12 +9,15 @@ namespace NetworkShared
         Invalid = 0,
         AuthRequest = 1, 
         ServerStatusRequest = 2,
+        FindOpponentrequest = 3,
         #endregion
 
         #region ServerClient
         OnAuth = 100,
         OnAuthFailed = 101,
-        OnServerStatus = 102
+        OnServerStatus = 102,
+        OnFindOpponent = 103,
+        OnStartGame = 104
         #endregion
     }
 

@@ -10,9 +10,9 @@ namespace NetworkShared
         public string Password { get; set; }
 
 
-        public NetAuthRequest(string username, string password, AuthRequestType authRequest)
+        public NetAuthRequest(string username, string password, AuthRequestType type)
         {
-            RequestType = authRequest;
+            RequestType = type; 
             Username = username;
             Password = password;
         }
