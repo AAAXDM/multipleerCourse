@@ -11,5 +11,9 @@ public class SceneManagerInstaller : MonoInstaller<SceneManagerInstaller>
                  .AsSingle()
                  .WithArguments(settings)
                  .NonLazy();
+
+        Container.BindInterfacesAndSelfTo<GameManager>()
+                 .AsSingle()
+                 .NonLazy();
     }
 }

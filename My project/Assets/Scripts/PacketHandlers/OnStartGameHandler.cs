@@ -1,21 +1,19 @@
 ﻿using NetworkShared;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine.SceneManagement;
+using Zenject;
 
 [HandlerRegisterAtribute(PacketType.OnStartGame)]
 public class OnStartGameHandler : IPacketHandler
 {
+    [Inject] GameManager gameManager;
     int sceneNumber = 2;
 
     public void Handle(INetPacket packet, int connectionId)
     {
         var msg = (OnStartGame) packet;
-
+        gameManager.RegisterGame(msg.GameId, msg.XUser, msg.OUser);
         SceneManager.LoadScene(sceneNumber);
+       
     }
 }
 
