@@ -8,6 +8,7 @@ using Zenject;
 
 public class NetworkingClient :  IInitializable, ITickable, IDisposable, INetEventListener
 {
+    [Inject] Factory factory;
     readonly NetworkingClientSettings settings;
     NetManager netManager;
     NetPeer peer;
@@ -110,7 +111,7 @@ public class NetworkingClient :  IInitializable, ITickable, IDisposable, INetEve
     IPacketHandler ResolveHandler(PacketType packetType)
     {
         var handlerType = handlerRegistry.Handlers[packetType];
-        return (IPacketHandler)Activator.CreateInstance(handlerType);
+        return (IPacketHandler)factory.Create(handlerType);
     }
 }
 

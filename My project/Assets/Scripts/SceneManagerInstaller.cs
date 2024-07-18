@@ -1,5 +1,6 @@
 using Zenject;
 using UnityEngine;
+using NetworkShared;
 
 public class SceneManagerInstaller : MonoInstaller<SceneManagerInstaller>
 {
@@ -15,5 +16,10 @@ public class SceneManagerInstaller : MonoInstaller<SceneManagerInstaller>
         Container.BindInterfacesAndSelfTo<GameManager>()
                  .AsSingle()
                  .NonLazy();
+        Container.BindInterfacesAndSelfTo<OnAuthHandler>().AsTransient();
+        Container.BindInterfacesAndSelfTo<OnAuthFailedHandler>().AsTransient();
+        Container.BindInterfacesAndSelfTo<OnServerStatusRequestHandler>().AsTransient();
+        Container.BindInterfacesAndSelfTo<OnStartGameHandler>().AsTransient();
+        Container.Bind<Factory>().AsSingle().NonLazy();
     }
 }
