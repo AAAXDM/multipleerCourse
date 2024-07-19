@@ -19,5 +19,6 @@ public class GameUI : MonoBehaviour
         Game game = gameManager.ActiveGame;
         xUser.SetUsername("[X]" + game.XUser);
         oUser.SetUsername("[O]" + game.OUser);
+        turnChanger.ChangePlayerTurn(gameManager.ActiveGame.XUser);
     }
 }

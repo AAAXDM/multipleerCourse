@@ -1,6 +1,4 @@
-﻿using Azure.Identity;
-
-namespace Srver
+﻿namespace Srver
 {
     public class GamesManager
     {
