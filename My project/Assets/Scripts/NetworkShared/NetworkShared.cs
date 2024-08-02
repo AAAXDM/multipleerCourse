@@ -10,6 +10,7 @@ namespace NetworkShared
         AuthRequest = 1, 
         ServerStatusRequest = 2,
         FindOpponentrequest = 3,
+        MarkCellrequest = 4,
         #endregion
 
         #region ServerClient
@@ -17,7 +18,8 @@ namespace NetworkShared
         OnAuthFailed = 101,
         OnServerStatus = 102,
         OnFindOpponent = 103,
-        OnStartGame = 104
+        OnStartGame = 104,
+        OnMarkCell = 105
         #endregion
     }
 
@@ -25,6 +27,20 @@ namespace NetworkShared
     {
         Register = 0,
         Auth = 1
+    }
+
+    public enum MarckOutcome
+    {
+        None, 
+        Win,
+        Draw
+    }
+
+    public enum MarkType
+    {
+        None,
+        X = 1,
+        O = 2
     }
 
     public interface INetPacket : INetSerializable
@@ -36,4 +52,5 @@ namespace NetworkShared
     {
         void Handle(INetPacket packet, int connectionId);
     }
+
 }

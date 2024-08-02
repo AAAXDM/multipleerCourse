@@ -10,6 +10,7 @@ using Zenject;
 public class LoginUi : MonoBehaviour
 {
     [Inject] NetworkingClient client;
+    [Inject] GameManager gameManager;
     [SerializeField] int maxUsernameLenght;
     [SerializeField] int maxPasswordLenght;
     [SerializeField] ButtonText loginButton;
@@ -136,6 +137,7 @@ public class LoginUi : MonoBehaviour
 
         NetAuthRequest request = new(username,password, type);
         client.SendOnServer(request);
+        gameManager.SetUserName(username);
     }
 
     bool InputValidate(GameObject error, string input, int lengt, bool regex)
