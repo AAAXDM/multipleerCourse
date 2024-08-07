@@ -8,13 +8,11 @@ public class InputManager : MonoBehaviour
     InputController input;
     Camera cam;
 
-    bool isX;
 
     void Awake()
     {
         input = new InputController();
         cam = Camera.main;
-        isX = gameManager.IsX;
     }
 
     void OnEnable()
@@ -41,10 +39,13 @@ public class InputManager : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(ray.origin, Vector2.up);
             if (hit.collider != null)
             {
-               Cell cell = hit.collider.gameObject.GetComponent<Cell>();
+               SceneCell cell = hit.collider.gameObject.GetComponent<SceneCell>();
                if(cell != null) 
                {
-                    cell.Fill(isX);
+                    if (!cell.IsFilled)
+                    {
+                        cell.SendMessageToServer();
+                    }
                }
             }
         }

@@ -475,7 +475,7 @@ GameObject:
   - component: {fileID: 1748308689}
   - component: {fileID: 1748308688}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: CellGenerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -519,6 +519,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1789529065}
   - component: {fileID: 1789529064}
+  - component: {fileID: 1789529066}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -539,7 +540,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
-  _monoInstallers: []
+  _monoInstallers:
+  - {fileID: 1789529066}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -572,6 +574,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1789529066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1789529063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89da163848abdd24bb19666cd9e76205, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellPrefab: {fileID: 7194770091126292069, guid: 91b5af0450bd4424fac6d43a6688b2e9, type: 3}
 --- !u!1001 &1675184009648953844
 PrefabInstance:
   m_ObjectHideFlags: 0

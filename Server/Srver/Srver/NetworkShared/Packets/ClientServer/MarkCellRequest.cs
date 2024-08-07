@@ -6,21 +6,14 @@ namespace NetworkShared
     {
         public PacketType Type => PacketType.MarkCellrequest;
 
-        public byte Row { get; set; }
-        public byte Col { get; set; }
+        public Cell Cell { get; set; }
 
-        public void Deserialize(NetDataReader reader)
-        {
-            Row = reader.GetByte();
-            Col = reader.GetByte();
-        }
-
+        public void Deserialize(NetDataReader reader) => Cell = reader.Get<Cell>();
 
         public void Serialize(NetDataWriter writer)
         {
             writer.Put((byte)Type);
-            writer.Put(Row);
-            writer.Put(Col);
+            writer.Put(Cell);
         }
     }
 }

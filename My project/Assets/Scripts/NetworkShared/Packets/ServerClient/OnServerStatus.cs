@@ -33,25 +33,4 @@ namespace NetworkShared
             }
         }
     }
-
-    public struct NetPlayerDto : INetSerializable
-    {
-        public string Username { get; set; }
-        public ushort Score { get; set; }
-        public bool IsOnline { get; set; }
-
-        public void Deserialize(NetDataReader reader)
-        {
-            Username = reader.GetString();
-            Score = reader.GetUShort();
-            IsOnline = reader.GetBool();
-        }
-
-        public void Serialize(NetDataWriter writer)
-        {
-            writer.Put(Username);
-            writer.Put(Score);
-            writer.Put(IsOnline);
-        }
-    }
 }

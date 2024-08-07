@@ -1,3 +1,4 @@
+using NetworkShared;
 using System;
 
 public class Game 
@@ -18,5 +19,20 @@ public class Game
         this.xUser = xUser;
         this.oUser = oUser;
         currentUser = xUser;
+    }
+
+    public void SwitchActivePlayer() => currentUser = GetOpponent(currentUser);
+
+    public MarkType GetMarkType(string userName)
+    {
+        if (userName == xUser) return MarkType.X;
+        else return MarkType.O;
+    }
+
+    string GetOpponent(string userName)
+    {
+        if (userName == xUser) return OUser;
+
+        return XUser;
     }
 }

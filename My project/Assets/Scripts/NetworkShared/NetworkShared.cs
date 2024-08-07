@@ -29,7 +29,15 @@ namespace NetworkShared
         Auth = 1
     }
 
-    public enum MarckOutcome
+    public enum WinLineType
+    {
+        None,
+        Horizontal,
+        Vertical,
+        Diagonal
+    }
+
+    public enum MarkOutcome
     {
         None, 
         Win,

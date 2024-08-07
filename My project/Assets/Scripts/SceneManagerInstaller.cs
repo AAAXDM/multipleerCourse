@@ -20,6 +20,7 @@ public class SceneManagerInstaller : MonoInstaller<SceneManagerInstaller>
         Container.BindInterfacesAndSelfTo<OnAuthFailedHandler>().AsTransient();
         Container.BindInterfacesAndSelfTo<OnServerStatusRequestHandler>().AsTransient();
         Container.BindInterfacesAndSelfTo<OnStartGameHandler>().AsTransient();
+        Container.BindInterfacesAndSelfTo<OnMarkCellHandler>().AsTransient();
         Container.Bind<Factory>().AsSingle().NonLazy();
     }
 }

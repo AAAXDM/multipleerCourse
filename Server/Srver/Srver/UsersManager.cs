@@ -32,6 +32,12 @@ namespace Server
             connections.Remove(peerId);
         }
 
+        public void IncreaseScore(string userName)
+        {
+            var user = db.Users.Where(x => x.UserName == userName).FirstOrDefault();
+            user.Score += 10;
+            db.SaveChanges();
+        }
 
         public bool LogIn(int connectionId, string userName, string password)
         {
@@ -71,8 +77,10 @@ namespace Server
 
         public ServerConnection GetConnection(int connectionId) => connections[connectionId];
 
-        void AddConnection(User user, int connectionId) => connections[connectionId].User = user;
+        public ServerConnection GetConnection(string userName) => connections.Where(x => x.Value.User.UserName == userName).FirstOrDefault().Value;
 
         public int[] GetOverIds(int excludedId) => connections.Keys.Where(x => x != excludedId).ToArray();
+
+        void AddConnection(User user, int connectionId) => connections[connectionId].User = user;
     }
 }

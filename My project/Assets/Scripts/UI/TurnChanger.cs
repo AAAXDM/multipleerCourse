@@ -7,6 +7,7 @@ public class TurnChanger : MonoBehaviour
 {
     TextMeshProUGUI textToChange;
     StringBuilder sb;
+    string replace = "{}";
 
     void Awake()
     {
@@ -18,7 +19,8 @@ public class TurnChanger : MonoBehaviour
     {
         sb.Clear();
         sb.Append(textToChange.text);
-        sb.Replace("{}", player);
+        sb.Replace(replace, player);
+        replace = player;
         textToChange.text = sb.ToString();
     }
 }

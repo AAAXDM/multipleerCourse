@@ -31,12 +31,13 @@ namespace NetworkShared
 
     public enum WinLineType
     {
+        None,
         Horizontal,
         Vertical,
-        Another
+        Diagonal
     }
 
-    public enum MarckOutcome
+    public enum MarkOutcome
     {
         None, 
         Win,

@@ -1,11 +1,11 @@
 using System;
-using Zenject;
 
 public class GameManager 
 {
     Game activeGame;
     string myUserName;
 
+    public Game ActiveGame => activeGame;
     public bool IsMyTurn
     {
         get
@@ -23,9 +23,6 @@ public class GameManager
             else return true;
         }
     }
-
-    public Game ActiveGame => activeGame;
-
 
     public void RegisterGame(Guid id, string xUser,string oUser)
     {
