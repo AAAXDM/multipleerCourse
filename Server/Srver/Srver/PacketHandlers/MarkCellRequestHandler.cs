@@ -3,7 +3,7 @@ using Server;
 
 namespace Srver.PacketHandlers
 {
-    [HandlerRegisterAtribute(PacketType.MarkCellrequest)]
+    [HandlerRegisterAtribute(PacketType.MarkCellRequest)]
     public class MarkCellRequestHandler : IPacketHandler
     {
         UsersManager usersManager;
@@ -25,28 +25,44 @@ namespace Srver.PacketHandlers
             var game = gamesManager.FindGame(userName);
             string opponent = game.GetOpponent(userName);
             var opConnection = usersManager.GetConnection(opponent);
-            Validate(msg.Cell.X,msg.Cell.Y,userName,game);
+            MarkOutcome mark;
+            OnMarkCell rmsg;
+            string winner;
 
-            var result = game.MarkCell(msg.Cell.X,msg.Cell.Y);
-
-            var rmsg = new OnMarkCell()
+            if (msg.IsSurrendering)
             {
-                Actor = userName,
-                Cell = msg.Cell,
-                Outcome = result.MarkOutcome,
-                Result = result.WinResult
-            };
-
-            server.SendToClient(connectionId,rmsg);
-            server.SendToClient(opConnection.ConnectionId,rmsg);
-            if(result.MarkOutcome == MarkOutcome.None)
+                mark = MarkOutcome.Win;
+                rmsg = new OnMarkCell()
+                {
+                    Actor = opponent,
+                    Outcome = mark
+                };
+                winner = opponent;
+            }
+            else
+            {
+                Validate(msg.Cell.X, msg.Cell.Y, userName, game);
+                winner = userName;
+                var result = game.MarkCell(msg.Cell.X, msg.Cell.Y);
+                mark = result.MarkOutcome;
+                rmsg = new OnMarkCell()
+                {
+                    Actor = userName,
+                    Cell = msg.Cell,
+                    Outcome = result.MarkOutcome,
+                    Result = result.WinResult
+                };
+            }
+            server.SendToClient(connectionId, rmsg);
+            server.SendToClient(opConnection.ConnectionId, rmsg);
+            if (mark == MarkOutcome.None)
             {
                 game.SwitchPlayer();
             }
-            if(result.MarkOutcome == MarkOutcome.Win)
+            if(mark == MarkOutcome.Win)
             {
-                game.AddWin(userName);
-                usersManager.IncreaseScore(userName);
+                game.AddWin(winner);
+                usersManager.IncreaseScore(winner);
             }
 
         }

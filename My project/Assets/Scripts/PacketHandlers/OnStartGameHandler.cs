@@ -12,8 +12,7 @@ public class OnStartGameHandler : IPacketHandler
     {
         var msg = (OnStartGame) packet;
         gameManager.RegisterGame(msg.GameId, msg.XUser, msg.OUser);
-        SceneManager.LoadScene(sceneNumber);
-       
+        SceneManager.LoadScene(sceneNumber);      
     }
 }
 

@@ -1,6 +1,5 @@
 using Cysharp.Threading.Tasks;
 using NetworkShared;
-using System;
 using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
@@ -73,8 +72,6 @@ public class LoginUi : MonoBehaviour
         ValidateAndUpdateUI();
     }
 
-    void ValidateAndUpdateUI() => actionButton.Button.interactable = userNameValidate && passwordValidate;
-
     void Login()
     {
         actionButton.Button.interactable = false;
@@ -84,17 +81,10 @@ public class LoginUi : MonoBehaviour
         LoginAsync().Forget();
     }
 
-    void Connect() => isConnected = true;
-
     void ActivateLoginWindow()
     {
         isLogin = true;
         Action(loginButton);
-    }
-
-    void ActivateRegisterWindow()
-    {
-        Action(registerButton);
     }
 
     void Action(ButtonText button)
@@ -114,9 +104,18 @@ public class LoginUi : MonoBehaviour
 
     void GoBack()
     {
+        userNameError.SetActive(false);
+        passwordError.SetActive(false);
         inputObject.SetActive(false);
+        loginError.SetActive(false);
         startObject.SetActive(true);
     }
+
+    void ActivateRegisterWindow() => Action(registerButton);
+
+    void ValidateAndUpdateUI() => actionButton.Button.interactable = userNameValidate && passwordValidate;
+
+    void Connect() => isConnected = true;
 
     async UniTask LoginAsync()
     {

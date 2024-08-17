@@ -1,14 +1,10 @@
 ﻿using NetworkShared;
 using Server;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Srver.PacketHandlers
 {
-    [HandlerRegisterAtribute(PacketType.FindOpponentrequest)]
+    [HandlerRegisterAtribute(PacketType.FindOpponentRequest)]
     public class FindOpponentHandler : IPacketHandler
     {
         UsersManager usersManager;
@@ -22,8 +18,22 @@ namespace Srver.PacketHandlers
 
         public void Handle(INetPacket packet, int connectionId)
         {
-           var connection = usersManager.GetConnection(connectionId);
-            matchMaker.RegisterPlayer(connection);
+            var message = (FindOpponentRequest)packet;
+            var connection = usersManager.GetConnection(connectionId);
+            if (!message.NeedToStop)
+            {
+                if (connection != null)
+                {
+                    matchMaker.RegisterPlayer(connection);
+                }
+            }
+            else
+            {
+                if (connection != null)
+                {
+                    matchMaker.TryUnregisterPlayer(connection.User.UserName);
+                }
+            }
         }
     }
 }

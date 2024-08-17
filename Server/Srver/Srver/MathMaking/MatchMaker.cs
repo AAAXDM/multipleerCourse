@@ -50,7 +50,7 @@ namespace Srver
 
                 request.SetMatchFound(true);
                 match.SetMatchFound(true);
-                Guid gameId = gamesManager.RegistrGame(request.Connection.User.UserName, match.Connection.User.UserName);
+                Guid gameId = gamesManager.RegisterGame(request.Connection.User.UserName, match.Connection.User.UserName);
                 request.Connection.GameId  = gameId;
                 match.Connection.GameId = gameId;
                 first = request;

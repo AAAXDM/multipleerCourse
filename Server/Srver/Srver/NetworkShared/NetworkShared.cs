@@ -9,8 +9,9 @@ namespace NetworkShared
         Invalid = 0,
         AuthRequest = 1, 
         ServerStatusRequest = 2,
-        FindOpponentrequest = 3,
-        MarkCellrequest = 4,
+        FindOpponentRequest = 3,
+        MarkCellRequest = 4,
+        FinishGameRequest = 5,
         #endregion
 
         #region ServerClient
@@ -19,7 +20,9 @@ namespace NetworkShared
         OnServerStatus = 102,
         OnFindOpponent = 103,
         OnStartGame = 104,
-        OnMarkCell = 105
+        OnMarkCell = 105,
+        OnFinishGame = 106,
+        OnNewRound = 107
         #endregion
     }
 

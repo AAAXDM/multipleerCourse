@@ -16,6 +16,7 @@ namespace NetworkShared
             Actor = reader.GetString();
             Cell = reader.Get<Cell>();
             Outcome = (MarkOutcome)reader.GetByte();
+            Result = reader.Get<WinResult>();
         }
 
         public void Serialize(NetDataWriter writer)
@@ -24,6 +25,7 @@ namespace NetworkShared
             writer.Put(Actor);
             writer.Put(Cell); 
             writer.Put((byte)Outcome);
+            writer.Put(Result);
         }
     }
 }

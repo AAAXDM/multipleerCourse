@@ -1,25 +1,59 @@
+using Cysharp.Threading.Tasks;
 using NetworkShared;
 using UnityEngine;
+using UnityEngine.UI;
 using Zenject;
 
 public class GameUI : MonoBehaviour
 {
     [Inject] GameManager gameManager;
     [Inject] CellGenerator cellGenerator;
+    [Inject] NetworkingClient networkingClient;
 
     [SerializeField] GameUserUI xUser;
     [SerializeField] GameUserUI oUser;
     [SerializeField] TurnChanger turnChanger;
-    [SerializeField] LineRenderer lineRenderer;
+    [SerializeField] LineDrawer lineDrawer;
+    [SerializeField] EndRoundUi endRoundUi;
+    [SerializeField] Button giveUpButton;
+
+    bool isPanelActive;
 
     void Start()
     {
-        lineRenderer.gameObject.SetActive(false);
+        endRoundUi.gameObject.SetActive(false);
+        lineDrawer.gameObject.SetActive(false);
         InitGameUI();
         OnMarkCellHandler.OnMarkCellEvent += MarkCellCallback;
+        OnNewRoundHandler.OnNewRound += NewRoundCallBack;
+        OnMarkCellHandler.SurrenderEvent += SurrenderCallback;
+        FinishGameHandler.OnFinishGame += FinishGameCallback;
+        giveUpButton.onClick.AddListener(GiveUp);
     }
 
-    private void OnDestroy() => OnMarkCellHandler.OnMarkCellEvent -= MarkCellCallback;
+    void OnDestroy()
+    {
+        OnMarkCellHandler.OnMarkCellEvent -= MarkCellCallback;
+        OnNewRoundHandler.OnNewRound -= NewRoundCallBack;
+        OnMarkCellHandler.SurrenderEvent -= SurrenderCallback;
+        FinishGameHandler.OnFinishGame -= FinishGameCallback;
+        giveUpButton.onClick.RemoveListener(GiveUp);
+    }
+
+    void FinishGameCallback()
+    {
+        if (!isPanelActive)
+        {
+            gameManager.DeleteActiveGame();
+            ShowEndRoundPanel(StateType.Draw);
+        }
+    }
+
+    void SurrenderCallback(OnMarkCell req)
+    {
+        bool isX = gameManager.ActiveGame.XUser == req.Actor;
+        ChangeUIAfterWin(req, isX);
+    }
 
     void InitGameUI()
     {
@@ -29,26 +63,81 @@ public class GameUI : MonoBehaviour
         ChangeEnemyTurn(gameManager.ActiveGame.CurrentUser);
     }
 
-    void MarkCellCallback(OnMarkCell req)
+    void ShowEndRoundPanel(StateType type)
     {
-        if (req.Outcome == MarkOutcome.None)
+        endRoundUi.Init(type);
+        endRoundUi.gameObject.SetActive(true);
+    }
+
+    void IncreaseScore(bool isX)
+    {
+        if(isX)
         {
-            ChangeEnemyTurn(gameManager.ActiveGame.CurrentUser);
+            gameManager.ActiveGame.IncreaseXScore();
+            xUser.SetScore(gameManager.ActiveGame.XScore);
         }
-        if(req.Outcome == MarkOutcome.Win)
+        else
         {
-            DrawWinLine(req.Result.StartCell, req.Result.EndCell);
+            gameManager.ActiveGame.IncreaseOScore();
+            oUser.SetScore(gameManager.ActiveGame.OScore);
         }
     }
 
-    void DrawWinLine(Cell startCell, Cell endCell)
+    void NewRoundCallBack()
+    {
+        isPanelActive = false;
+        endRoundUi.gameObject.SetActive(false);
+        lineDrawer.gameObject.SetActive(false);
+        ChangeEnemyTurn(gameManager.ActiveGame.CurrentUser);
+    }
+
+    void ChangeUIAfterWin(OnMarkCell req, bool isX)
+    {
+        IncreaseScore(isX);
+        if (req.Actor == gameManager.MyUserName)
+            ShowEndRoundPanel(StateType.Win);
+        else
+            ShowEndRoundPanel(StateType.Lose);
+    }
+
+    void GiveUp()
+    {
+        MarkCellRequest response = new()
+        {
+            IsSurrendering = true
+        };
+        networkingClient.SendOnServer(response);
+    }
+
+    void MarkCellCallback(OnMarkCell req) => MarkCellAsync(req).Forget();
+
+    void ChangeEnemyTurn(string userName) => turnChanger.ChangePlayerTurn(userName);
+
+    async UniTask MarkCellAsync(OnMarkCell req)
+    {
+        switch (req.Outcome)
+        {
+            case MarkOutcome.None:
+                ChangeEnemyTurn(gameManager.ActiveGame.CurrentUser);
+                break;
+            case MarkOutcome.Win:
+                isPanelActive = true;
+                bool isX = gameManager.ActiveGame.XUser == req.Actor;
+                await DrawWinLine(req.Result.StartCell, req.Result.EndCell, isX);
+                ChangeUIAfterWin(req, isX);
+                break;
+            case MarkOutcome.Draw:
+                isPanelActive = true;
+                ShowEndRoundPanel(StateType.Draw);
+                break;
+        }
+    }
+
+    async UniTask DrawWinLine(Cell startCell, Cell endCell, bool isX)
     {
         SceneCell start = cellGenerator.FindCell(startCell);
         SceneCell end = cellGenerator.FindCell(endCell);
-        lineRenderer.gameObject.SetActive(true);
-        lineRenderer.SetPosition(0,start.gameObject.transform.position);
-        lineRenderer.SetPosition(1, end.gameObject.transform.position);
+        lineDrawer.gameObject.SetActive(true);
+        await lineDrawer.DrawLine(start, end, isX);
     }
-
-    void ChangeEnemyTurn(string userName) => turnChanger.ChangePlayerTurn(userName);
 }

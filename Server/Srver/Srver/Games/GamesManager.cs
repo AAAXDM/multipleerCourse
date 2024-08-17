@@ -9,29 +9,24 @@
             games = new();
         }
 
-        public Guid RegistrGame(string xUser, string oUser)
+        public Guid RegisterGame(string xUser, string oUser)
         {
             Game game = new Game(xUser,oUser);
             games.Add(game);
             return game.Id;
         }
 
-        public Game? FindGame(string username) => games.FirstOrDefault(x => x.XUser == username || x.OUser == username);
+        public Game? FindGame(string username) => games.FirstOrDefault(x => x.XUser.UserName == username || x.OUser.UserName == username);
 
-        public Game CloseGame(string username)
+        public void CloseGame(Game game)
         {
-            Game game = FindGame(username);
-
             if (game != null) 
             { 
                 games.Remove(game);
             }
-
-            return game;
         }
 
-        public bool Gameexists(string username) => games.Any(x => x.XUser == username || x.OUser == username);
-
+        public bool GameExists(string username) => games.Any(x => x.XUser.UserName == username || x.OUser.UserName == username);
 
         public int GamesCount() => games.Count();
         

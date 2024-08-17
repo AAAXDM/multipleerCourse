@@ -16,11 +16,13 @@ public class SceneManagerInstaller : MonoInstaller<SceneManagerInstaller>
         Container.BindInterfacesAndSelfTo<GameManager>()
                  .AsSingle()
                  .NonLazy();
-        Container.BindInterfacesAndSelfTo<OnAuthHandler>().AsTransient();
-        Container.BindInterfacesAndSelfTo<OnAuthFailedHandler>().AsTransient();
-        Container.BindInterfacesAndSelfTo<OnServerStatusRequestHandler>().AsTransient();
-        Container.BindInterfacesAndSelfTo<OnStartGameHandler>().AsTransient();
-        Container.BindInterfacesAndSelfTo<OnMarkCellHandler>().AsTransient();
+        Container.BindInterfacesAndSelfTo<OnAuthHandler>().AsSingle();
+        Container.BindInterfacesAndSelfTo<OnAuthFailedHandler>().AsSingle();
+        Container.BindInterfacesAndSelfTo<OnServerStatusRequestHandler>().AsSingle();
+        Container.BindInterfacesAndSelfTo<OnStartGameHandler>().AsSingle();
+        Container.BindInterfacesAndSelfTo<OnMarkCellHandler>().AsSingle();
+        Container.BindInterfacesAndSelfTo<FinishGameHandler>().AsSingle();
+        Container.BindInterfacesAndSelfTo<OnNewRoundHandler>().AsSingle();
         Container.Bind<Factory>().AsSingle().NonLazy();
     }
 }

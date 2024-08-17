@@ -18,6 +18,12 @@ namespace NetworkShared
             writer.Put(X);
             writer.Put(Y);
         }
+
+        public bool Equals(Cell cell)
+        {
+            if (cell.X == X && cell.Y == Y) return true;
+            return false;
+        }
     }
     public struct WinResult : INetSerializable
     {

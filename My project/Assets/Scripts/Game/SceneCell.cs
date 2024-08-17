@@ -9,6 +9,7 @@ public class SceneCell : MonoBehaviour
     [SerializeField] GameObject x;
     [SerializeField] GameObject o;
 
+    Vector3 scale = new Vector3(0.7f, 0.7f, 0.7f);
     bool isFilled;
     byte row;
     byte column;
@@ -40,17 +41,34 @@ public class SceneCell : MonoBehaviour
         };
         var msg = new MarkCellRequest()
         {
-            Cell = cell 
+            Cell = cell,
+            IsSurrendering = false
         };
         client.SendOnServer(msg);
     }
 
     public void FillCell(MarkType markType)
     {
-        if (markType == MarkType.X) x.SetActive(true);
-        else o.SetActive(true);
-
         isFilled = true;
+        if (markType == MarkType.X) ActivateCell(x);
+        else ActivateCell(o);      
+    }
+
+    public void SetCellToDefault()
+    {
+        if (isFilled)
+        {
+            isFilled = false;
+            x.SetActive(false);
+            o.SetActive(false);
+        }
+    }
+
+    void ActivateCell(GameObject obj)
+    {
+        obj.transform.localScale = scale;
+        obj.SetActive(true);
+        LeanTween.scale(obj, Vector3.one,0.3f).setEase(LeanTweenType.easeInOutBounce);
     }
 
     public class Factory : PlaceholderFactory<SceneCell>

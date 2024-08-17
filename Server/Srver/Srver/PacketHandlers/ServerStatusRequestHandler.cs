@@ -1,6 +1,5 @@
 ﻿using NetworkShared;
 
-
 namespace Server.PacketHandlers
 {
     [HandlerRegisterAtribute(PacketType.ServerStatusRequest)]

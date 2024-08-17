@@ -75,7 +75,15 @@ namespace Server
             return false;
         }
 
-        public ServerConnection GetConnection(int connectionId) => connections[connectionId];
+        public ServerConnection GetConnection(int connectionId)
+        {
+            if (connectionId < connections.Count)
+            {
+                return connections[connectionId];
+            }
+
+            return null;
+        }
 
         public ServerConnection GetConnection(string userName) => connections.Where(x => x.Value.User.UserName == userName).FirstOrDefault().Value;
 

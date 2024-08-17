@@ -12,16 +12,22 @@ public class CellGenerator : MonoBehaviour
     [SerializeField] SceneCell cell;
 
     List<SceneCell> cells;
+    float zPos = 100;
     int maxCount = 3;
 
     void Awake()
     {
         cells = new();
         OnMarkCellHandler.OnMarkCellEvent += MarkCell;
+        OnNewRoundHandler.OnNewRound += SetCellsToDefault;
         InstantiateCells();
     }
 
-    void OnDestroy() => OnMarkCellHandler.OnMarkCellEvent -= MarkCell;
+    void OnDestroy()
+    {
+        OnMarkCellHandler.OnMarkCellEvent -= MarkCell;
+        OnNewRoundHandler.OnNewRound -= SetCellsToDefault;
+    }
 
     public SceneCell FindCell(Cell cell) => cells.Where(x => x.Row == cell.X).Where(y => y.Column == cell.Y).FirstOrDefault();
 
@@ -43,7 +49,7 @@ public class CellGenerator : MonoBehaviour
     void InstantiateCell(int row, int column)
     {
         SceneCell instCell = factory.Create();
-        Vector3 pos = new Vector3(row, column);
+        Vector3 pos = new Vector3(row, column, zPos);
         instCell.transform.position = pos;
         instCell.SetPosition(row, column,maxCount);
         cells.Add(instCell);
@@ -54,5 +60,13 @@ public class CellGenerator : MonoBehaviour
         SceneCell cell = cells.Where(x => x.Row == req.Cell.X).Where(y => y.Column == req.Cell.Y).FirstOrDefault();
         MarkType playerType = gameManager.ActiveGame.GetMarkType(req.Actor);
         cell.FillCell(playerType);
+    }
+
+    void SetCellsToDefault()
+    {
+        foreach(var cell in cells)
+        {
+            cell.SetCellToDefault();
+        }
     }
 }

@@ -6,26 +6,21 @@ namespace Srver
     {
         int maxSize = 3;
         int countToWin = 3;
-        byte halfСountToWin = 1;
 
         public Guid Id { get; set; }
-        public ushort Round { get; set; }
-        public string XUser { get; set; }
-        public string OUser { get; set; }
-        public ushort XWins { get; set; }
-        public ushort OWins { get; set; }
-        public bool OWantsRematch { get; set; }
-        public bool XWantsRematch { get; set; }
+        public User XUser {get;}
+        public User OUser {get;}
+        public ushort Round { get; set; } 
         public string CurrentUser { get; set; }
-        public MarkType[,] Grid { get; }
+        public MarkType[,] Grid { get; private set; }
 
         public Game(string xUser, string oUser)
         {
             Id = new Guid();
-            OUser = oUser;
-            XUser = xUser;
+            OUser = new User(oUser);
+            XUser = new User(xUser);
             Round = 1;
-            CurrentUser = XUser;
+            CurrentUser = xUser;
             Grid = new MarkType[maxSize, maxSize];
         }
 
@@ -35,7 +30,7 @@ namespace Srver
             MarkResult result = new();
             Grid[row, column] = type;
             bool win = CheckWin(row, column, type, out WinResult winResult);
-            if(win)
+            if (win)
             {
                 result.MarkOutcome = MarkOutcome.Win;
                 result.WinResult = winResult;
@@ -43,7 +38,7 @@ namespace Srver
             else
             {
                 bool draw = CheckDraw();
-                if(draw)
+                if (draw)
                 {
                     result.MarkOutcome = MarkOutcome.Draw;
                 }
@@ -51,30 +46,66 @@ namespace Srver
 
             return result;
         }
-        
+
         public void SwitchPlayer() => CurrentUser = GetOpponent(CurrentUser);
 
         public void AddWin(string userName)
         {
             MarkType winnerType = GetPlayerType(userName);
-            if (winnerType == MarkType.X) XWins++;
-            else OWins++;
+            if (winnerType == MarkType.X) XUser.IncreaseWinCount();
+            else OUser.IncreaseWinCount();
+        }
+
+        public void CreateNewRound()
+        {
+            CurrentUser = XUser.UserName;
+            Grid = new MarkType[maxSize, maxSize];
+            XUser.SetWantToRematch(false);
+            OUser.SetWantToRematch(false);
+            Round++;
         }
 
         public string GetOpponent(string userName)
         {
-            if (userName == XUser) return OUser;
+            if (userName == XUser.UserName) return OUser.UserName;
 
-            return XUser;
+            return XUser.UserName;
+        }
+
+        public bool CanPlayAgain(string userName)
+        {
+            MarkType winnerType = GetPlayerType(userName);
+            if(winnerType == MarkType.X)
+            {
+               return WantPlayAgain(XUser, OUser);
+            }
+            else
+            {
+              return WantPlayAgain(OUser, XUser);
+            }
+        }
+
+        bool WantPlayAgain(User firstUser,User secondUser)
+        {
+            if (!firstUser.WantToRematch)
+            {
+                firstUser.SetWantToRematch(true);
+            }
+            if (secondUser.WantToRematch)
+            {
+                return true;
+            }
+            
+            return false;
         }
 
         MarkType GetPlayerType(string userName)
         {
-            if (userName == XUser)
+            if (userName == XUser.UserName)
             {
                 return MarkType.X;
             }
-            if (userName == OUser)
+            if (userName == OUser.UserName)
             {
                 return MarkType.O;
             }
@@ -84,82 +115,153 @@ namespace Srver
         bool CheckWin(byte row, byte col, MarkType type, out WinResult result)
         {
             result = new();
-            byte minRow = row <= halfСountToWin ? (byte)(0) : (byte)(2);
-            byte minCol = col <= halfСountToWin ? (byte)(0) : (byte)(2);
-            byte maxRow = row + halfСountToWin >= maxSize ? (byte)(maxSize - 1) : (byte)(row + halfСountToWin);
-            byte maxCol = col + halfСountToWin >= maxSize ? (byte)(maxSize - 1) : (byte)(col + halfСountToWin);
-            int j = 1;
+            byte minRow = GetCellCoordinate(row,false);
+            byte maxRow = GetCellCoordinate(row, true);
+            byte minCol = GetCellCoordinate(col, false);
+            byte maxCol = GetCellCoordinate(col, true);
 
-            if(CheckLine(minRow, maxRow, col,type, true))
+            if (CheckLine(minRow, maxRow, col, row, type, WinLineType.Horizontal))
             {
                 result.StartCell = new Cell() { X = minRow, Y = col };
                 result.EndCell = new Cell() { X = maxRow, Y = col };
                 return true;
             }
 
-            if(CheckLine(minCol,maxCol,row,type,false))
+            if (CheckLine(minCol, maxCol, row,col, type, WinLineType.Vertical))
             {
                 result.StartCell = new Cell() { X = row, Y = minCol };
-                result.EndCell =new Cell() { X = row, Y = maxCol };
+                result.EndCell = new Cell() { X = row, Y = maxCol };
                 return true;
             }
 
-            for (int i = 0; i <= 2; i++)
+            if(CheckLine(minCol, maxCol, row, col, type, WinLineType.Diagonal))
             {
-                if (Grid[minRow + j, minCol + j] != type) break;
-                if (j == countToWin)
+                result.StartCell = new Cell() { X = minRow, Y = minCol };
+                result.EndCell = new Cell() { X = maxRow, Y = maxCol };
+                return true;
+            }
+
+            if(CheckLine(minCol, maxCol, row, col, type, WinLineType.AntiDiagonal))
+            {
+                result.StartCell = new Cell() { X = minRow, Y = maxCol };
+                result.EndCell = new Cell() { X = maxRow, Y = minCol };
+                return true;
+            }
+           
+            return false;
+        }
+
+        bool CheckLine(int min, int max, int staticNumber, int middle,MarkType type, WinLineType lineType)
+        {
+            int j = 0;
+            bool horizontal = SetCycleParameters(lineType, out bool vertical);
+             
+            int x = horizontal ? 0 : staticNumber;
+            int y = vertical ?  0 : staticNumber;
+
+            if (middle >= min)
+            {
+                for (int i = middle; i >= min; i--)
                 {
-                    result.StartCell = new Cell() { X = minRow, Y = minCol };
-                    result.EndCell = new Cell() { X = (byte)(minRow + j), Y = (byte)(minCol + j) };
-                    return true;
+                    if (!IsGridEqualsType(x,y,i,max,horizontal,vertical,lineType,type)) break;
+                    j++;
                 }
             }
 
-            for (int i = 0; i <= 2; i++)
+            if (middle + 1 <= max)
             {
-                if (Grid[minRow + j, maxCol - j] != type) break;
-                if (j == countToWin)
+                for (int i = middle + 1; i <= max; i++)
                 {
-                    result.StartCell = new Cell() { X = minRow, Y = maxCol };
-                    result.EndCell = new Cell() { X = (byte)(minRow + j), Y = (byte)(maxCol - j) };
-                    return true;
+                    if (!IsGridEqualsType(x, y, i, max, horizontal, vertical, lineType, type)) break;
+                    j++;
                 }
             }
+
+            if (j >= countToWin) return true;
 
             return false;
         }
 
-        bool CheckLine(int min,int max,int staticNumber, MarkType type, bool horizontal)
+        bool IsGridEqualsType(int x,int y,int i,int max,bool horizontal, bool vertical,WinLineType lineType, MarkType type)
         {
-            int j = 1;
-            int x = horizontal ? 0 : staticNumber;
-            int y = horizontal ? staticNumber : 0;
-
-            for (int i = 0; i <= 2; i++)
+            if (horizontal)
             {
-                if(horizontal)
+                x = i;
+            }
+            if (vertical)
+            {
+                if (lineType == WinLineType.AntiDiagonal)
                 {
-                    x = i;
+                    y = max - i;
                 }
                 else
                 {
                     y = i;
                 }
-                if (Grid[x, y] != type) break;
+            }
+            if (Grid[x, y] != type) return false;
+            return true;
+        }
 
-                if (j == countToWin)return true;
+        bool SetCycleParameters(WinLineType lineType, out bool vertical)
+        {
+            bool horizontal = false;
+            vertical = false;
 
-                j++;
+            switch (lineType)
+            {
+                case WinLineType.AntiDiagonal:
+                    horizontal = true;
+                    vertical = true;
+                    break;
+                case WinLineType.Diagonal:
+                    horizontal = true;
+                    vertical = true;
+                    break;
+                case WinLineType.Horizontal:
+                    horizontal = true;
+                    break;
+                case WinLineType.Vertical:
+                    vertical = true;
+                    break;
             }
 
-            return false;
+            return horizontal;
+        }
+
+        byte GetCellCoordinate(byte pos, bool isMax)
+        {
+            if(isMax)
+            {
+                int summ = pos + (countToWin - 1);
+                if(summ < (maxSize - 1))
+                {
+                    return (byte)summ;
+                }
+                else
+                {
+                    return (byte)(maxSize - 1);
+                }
+            }
+            else
+            {
+                int difference = (pos - (countToWin - 1));
+                if (difference > 0)
+                {
+                    return (byte)difference;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
         }
 
         bool CheckDraw()
         {
-            for(int i = 0; i < maxSize; i++)
+            for (int i = 0; i < maxSize; i++)
             {
-                for(int j = 0; j < maxSize; j++)
+                for (int j = 0; j < maxSize; j++)
                 {
                     if (Grid[i, j] == 0) return false;
                 }
@@ -173,5 +275,22 @@ namespace Srver
     {
         public MarkOutcome MarkOutcome { get; set; }
         public WinResult WinResult { get; set; }
+    }
+
+    public class User
+    {
+        string userName;
+        ushort winCount;
+        bool wantToRematch;
+
+        public string UserName => userName;
+        public ushort WinCount => winCount;
+        public bool WantToRematch => wantToRematch;
+
+        public User(string userName) => this.userName = userName;
+
+        public void IncreaseWinCount() => winCount++;
+
+        public void SetWantToRematch(bool value) => wantToRematch = value;
     }
 }

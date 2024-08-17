@@ -4,10 +4,10 @@ namespace NetworkShared
 {
     public struct FindOpponentRequest : INetPacket
     {
-        public PacketType Type => PacketType.FindOpponentrequest;
+        public PacketType Type => PacketType.FindOpponentRequest;
         public bool NeedToStop { get; set; }
 
-        public void Deserialize(NetDataReader reader) => reader.GetBool();
+        public void Deserialize(NetDataReader reader) => NeedToStop = reader.GetBool();
 
         public void Serialize(NetDataWriter writer)
         {

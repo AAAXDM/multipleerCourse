@@ -18,7 +18,7 @@ public class LobbyUI : MonoBehaviour
     [SerializeField] GameObject container;
     int startSceneNumber = 0;
 
-    HashSet<string> users;
+    Dictionary<string,UserUI> users;
 
     void Start()
     {
@@ -43,12 +43,19 @@ public class LobbyUI : MonoBehaviour
         for(int i = 0; i < message.TopPlayers.Length; i++)
         {
             NetPlayerDto player = message.TopPlayers[i];
-            if (users.Contains(player.Username)) continue;
-            UserUI userUI = Instantiate(userUISO.UserUI, container.transform);
+            UserUI userUI;
+            if (!users.ContainsKey(player.Username))
+            {
+               userUI = Instantiate(userUISO.UserUI, container.transform);
+               users.Add(player.Username, userUI);
+            }
+            else
+            {
+                userUI = users[player.Username];
+            }
             userUI.Username.text = player.Username;
             userUI.Score.text = player.Score.ToString();
             userUI.SetOnlineStatus(player.IsOnline);
-            users.Add(player.Username);
         }
 
         usersCount.text = $"{message.PlayersCount} players online";
@@ -76,8 +83,10 @@ public class LobbyUI : MonoBehaviour
     void StopFindingOpponent()
     {
         loadingContainer.SetActive(false);
-        FindOpponentRequest message = new();
-        message.NeedToStop = true;
+        FindOpponentRequest message = new()
+        {
+            NeedToStop = true
+        };
         client.SendOnServer(message);
     }
 }
