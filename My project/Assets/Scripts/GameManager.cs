@@ -14,8 +14,8 @@ public class GameManager : IInitializable, IDisposable
     public bool IsMyTurn
     {
         get
-        {
-            if(activeGame.CurrentUser != myUserName) return false;
+        { 
+            if(activeGame != null && activeGame.CurrentUser != myUserName) return false;
             else return true;
         }
     }
