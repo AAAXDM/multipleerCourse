@@ -53,7 +53,10 @@ namespace Srver.PacketHandlers
                     };
                 }
             }
-            networkServer.SendToClient(opConnection.ConnectionId, rmsg);
+            if (opConnection != null)
+            {
+                networkServer.SendToClient(opConnection.ConnectionId, rmsg);
+            }
         }
 
         ServerConnection GetOpponentConnection(string userName, Game game)
