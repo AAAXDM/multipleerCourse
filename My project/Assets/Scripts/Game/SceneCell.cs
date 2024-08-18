@@ -10,6 +10,7 @@ public class SceneCell : MonoBehaviour
     [SerializeField] GameObject o;
 
     Vector3 scale = new Vector3(0.7f, 0.7f, 0.7f);
+    float tweenTime = 0.3f;
     bool isFilled;
     byte row;
     byte column;
@@ -68,7 +69,7 @@ public class SceneCell : MonoBehaviour
     {
         obj.transform.localScale = scale;
         obj.SetActive(true);
-        LeanTween.scale(obj, Vector3.one,0.3f).setEase(LeanTweenType.easeInOutBounce);
+        LeanTween.scale(obj, Vector3.one, tweenTime).setEase(LeanTweenType.easeInOutBounce);
     }
 
     public class Factory : PlaceholderFactory<SceneCell>
