@@ -62,16 +62,11 @@ namespace Srver
                     OUser = match.Connection.User.UserName,
                     GameId = gameId,
                 };
-
+                pool.Remove(first);
+                pool.Remove(second);
                 server.SendToClient(request.Connection.ConnectionId, onStartGame);
                 server.SendToClient(match.Connection.ConnectionId, onStartGame);
                 break;
-            }
-
-            if(second != null)
-            {
-                pool.Remove(first);
-                pool.Add(second);
             }
         }
     }

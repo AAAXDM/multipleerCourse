@@ -44,13 +44,13 @@ namespace Server
             User user = db.Users.Where(x => x.UserName == userName).Where(x => x.Password == password).FirstOrDefault();
             if (user != null)
             {
-                if (connections.ContainsKey(connectionId))
+                if (connections.ContainsKey(connectionId) && !user.IsOnline)
                 {
                     user.IsOnline = true;
                     AddConnection(user, connectionId);
                     db.SaveChanges();
+                    return true;
                 }
-                return true;
             }
             return false;
         }
@@ -77,17 +77,16 @@ namespace Server
 
         public ServerConnection GetConnection(int connectionId)
         {
-            if (connectionId < connections.Count)
+            if (connections != null && connections.ContainsKey(connectionId))
             {
                 return connections[connectionId];
             }
-
             return null;
         }
 
         public ServerConnection GetConnection(string userName) => connections.Where(x => x.Value.User.UserName == userName).FirstOrDefault().Value;
 
-        public int[] GetOverIds(int excludedId) => connections.Keys.Where(x => x != excludedId).ToArray();
+        public List<int> GetOverIds(int excludedId) => connections.Keys.Where(x => x != excludedId).ToList();
 
         void AddConnection(User user, int connectionId) => connections[connectionId].User = user;
     }

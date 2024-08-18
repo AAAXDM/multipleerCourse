@@ -31,7 +31,7 @@ namespace Server.PacketHandlers
             }
 
             requestMessage = sucsess ? new OnAuth() : new OnAuthFailed();
-            if (sucsess) server.NotiFyAnotherPlayers(connectionId);
+            if (sucsess) server.NotifyAnotherPlayers(connectionId);
             server.SendToClient(connectionId, requestMessage);
         }
     }

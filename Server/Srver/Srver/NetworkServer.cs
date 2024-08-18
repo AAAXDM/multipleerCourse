@@ -49,15 +49,19 @@ namespace Server
 
         public void SendToClient(int connectionId, INetPacket message, DeliveryMethod deliveryMethod = DeliveryMethod.ReliableOrdered)
         {
-            var peer  = usersManager.GetConnection(connectionId).Peer;
-            peer.Send(WriteSerializeble(message),deliveryMethod);
+            ServerConnection connection = usersManager.GetConnection(connectionId);
+            if (connection != null)
+            {
+                NetPeer peer = connection.Peer;
+                peer.Send(WriteSerializable(message), deliveryMethod);
+            }
         }
 
         public void OnPeerDisconnected(NetPeer peer, DisconnectInfo disconnectInfo)
         {
             netManager.DisconnectPeer(peer);
             usersManager.Disconnect(peer.Id);
-            NotiFyAnotherPlayers(peer.Id);
+            NotifyAnotherPlayers(peer.Id);
             Console.WriteLine($"Client disconnected to server {peer.Address}.Id{peer.Id}");
         }
 
@@ -107,7 +111,7 @@ namespace Server
             return (IPacketHandler) provider.GetRequiredService(type);
         }
 
-        public void NotiFyAnotherPlayers(int excludedPlayerId)
+        public void NotifyAnotherPlayers(int excludedPlayerId)
         {
 
             OnServerStatus message = new OnServerStatus
@@ -116,13 +120,15 @@ namespace Server
                 TopPlayers = db.GetTopUsers(topPlayersCount)
             };
 
-            int[] ids = usersManager.GetOverIds(excludedPlayerId);
+            List<int> ids = usersManager.GetOverIds(excludedPlayerId);
 
-            foreach (var connectionId in ids)
+            if (ids != null)
             {
-                SendToClient(connectionId, message);
+                foreach (var connectionId in ids)
+                {
+                    SendToClient(connectionId, message);
+                }
             }
-            
         }
 
         INetPacket ResolvePacket(PacketType packetType, NetPacketReader reader)
@@ -134,7 +140,7 @@ namespace Server
             return packet;
         }
 
-        NetDataWriter WriteSerializeble(INetPacket packet)
+        NetDataWriter WriteSerializable(INetPacket packet)
         {
             netDataWriter.Reset();
             packet.Serialize(netDataWriter);
