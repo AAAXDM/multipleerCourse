@@ -19,7 +19,7 @@ namespace Server.PacketHandlers
         {
             OnServerStatus message = new OnServerStatus
             {
-                PlayersCount = (ushort)db.Users.Count(),
+                PlayersCount = (ushort)db.GetOnlinePlayersCount(),
                 TopPlayers = db.GetTopUsers(usersCount)
             };
 

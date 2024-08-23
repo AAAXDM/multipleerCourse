@@ -23,7 +23,7 @@ namespace Srver.PacketHandlers
             var connection = usersManager.GetConnection(connectionId);
             var userName = connection.User.UserName;
             var game = gamesManager.FindGame(userName);
-            string opponent = game.GetOpponent(userName);
+            string opponent = game?.GetOpponent(userName);
             var opConnection = usersManager.GetConnection(opponent);
             MarkOutcome mark;
             OnMarkCell rmsg;
@@ -53,8 +53,9 @@ namespace Srver.PacketHandlers
                     Result = result.WinResult
                 };
             }
-            server.SendToClient(connectionId, rmsg);
+            server.SendToClient(connectionId, rmsg);            
             server.SendToClient(opConnection.ConnectionId, rmsg);
+            
             if (mark == MarkOutcome.None)
             {
                 game.SwitchPlayer();

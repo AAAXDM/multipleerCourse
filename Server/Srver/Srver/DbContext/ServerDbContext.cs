@@ -39,6 +39,15 @@ namespace Server
                         ).ToArray();
         }
 
+        public void SetAllUsersOffline()
+        {
+            foreach (var user in Users) 
+            {
+                user.IsOnline = false;
+                SaveChanges();
+            }
+        }
+
         public void SetUserOffline(User user)
         {
             User userToOffline = Users.Where(x => x == user).FirstOrDefault();

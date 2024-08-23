@@ -5,6 +5,8 @@ using LiteNetLib.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NetworkShared;
+using Srver;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Server
 {
@@ -13,6 +15,7 @@ namespace Server
         NetDataWriter netDataWriter = new();
         NetManager netManager;
         UsersManager usersManager;
+        GamesManager gamesManager;
         ServerDbContext db;
         ILogger<NetworkServer> logger;
         IServiceProvider provider;
@@ -20,12 +23,13 @@ namespace Server
         int disconnectTimeout = 100000;
         int topPlayersCount = 8;
 
-        public NetworkServer(ILogger<NetworkServer> logger, IServiceProvider provider, UsersManager usersManager, ServerDbContext db) 
+        public NetworkServer(ILogger<NetworkServer> logger, IServiceProvider provider, UsersManager usersManager, ServerDbContext db, GamesManager gamesManager) 
         {
             this.db = db;
             this.usersManager = usersManager;
             this.logger = logger;
             this.provider = provider;
+            this.gamesManager = gamesManager;
 
             netManager = new(this)
             {
@@ -59,6 +63,7 @@ namespace Server
 
         public void OnPeerDisconnected(NetPeer peer, DisconnectInfo disconnectInfo)
         {
+            SendFinishGame(peer.Id);
             netManager.DisconnectPeer(peer);
             usersManager.Disconnect(peer.Id);
             NotifyAnotherPlayers(peer.Id);
@@ -129,6 +134,33 @@ namespace Server
                     SendToClient(connectionId, message);
                 }
             }
+        }
+
+        void SendFinishGame(int connectionId)
+        {
+            var connection = usersManager.GetConnection(connectionId);
+            var userName = connection.User.UserName;
+            if (!gamesManager.GameExists(userName)) return;
+            INetPacket rmsg;
+            var game = gamesManager.FindGame(userName);
+            var opConnection = GetOpponentConnection(userName, game);
+            gamesManager.CloseGame(game);
+
+            rmsg = new OnFinishGame()
+            {
+                IsFinished = true
+            };
+
+            if (opConnection != null)
+            {
+                SendToClient(opConnection.ConnectionId, rmsg);
+            }
+        }
+
+        ServerConnection GetOpponentConnection(string userName, Game game)
+        {
+            string opponent = game.GetOpponent(userName);
+            return usersManager.GetConnection(opponent);
         }
 
         INetPacket ResolvePacket(PacketType packetType, NetPacketReader reader)

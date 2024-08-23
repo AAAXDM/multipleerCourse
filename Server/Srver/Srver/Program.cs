@@ -1,17 +1,34 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Server;
 
-int sleepTime = 15;
-
-var serviceProvider = Container.Configure();
-var server = serviceProvider.GetRequiredService<NetworkServer>();
-ServerDbContext db = new();
-
-server.Start();
-
-while (true)
+class Program
 {
-    server.PollEvents();
-    Thread.Sleep(sleepTime);  
+    static ServerDbContext db;
+
+    static void Main(string[] args)
+    {
+        int sleepTime = 15;
+
+        var serviceProvider = Container.Configure();
+        var server = serviceProvider.GetRequiredService<NetworkServer>();
+        db = new();
+
+        server.Start();
+
+        Thread.GetDomain().UnhandledException += (sender, e) => Exit(null);
+        AppDomain.CurrentDomain.ProcessExit += (sender, e) => Exit(null);
+
+        while (true)
+        {
+            server.PollEvents();
+            Thread.Sleep(sleepTime);
+        }
+    }
+
+    static void Exit(object sender)
+    {
+        db.SetAllUsersOffline();
+        Console.WriteLine($"Server quit");
+    }
 }
 

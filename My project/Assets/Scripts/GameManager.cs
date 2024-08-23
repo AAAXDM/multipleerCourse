@@ -1,16 +1,14 @@
 using System;
-using Zenject;
-using UnityEngine;
-using NetworkShared;
 
-public class GameManager : IInitializable, IDisposable
+public class GameManager 
 {
-    [Inject] NetworkingClient server;
     Game activeGame;
     string myUserName;
+    bool canPlay;
 
     public Game ActiveGame => activeGame;
     public string MyUserName => myUserName;
+    public bool CanPlay => canPlay;
     public bool IsMyTurn
     {
         get
@@ -20,26 +18,15 @@ public class GameManager : IInitializable, IDisposable
         }
     }
 
-    public void Initialize() => Application.quitting += Quit;
-
-    public void Dispose() => Application.quitting -= Quit;
-
-    public void RegisterGame(Guid id, string xUser,string oUser) => activeGame = new Game(id, xUser, oUser);
+    public void RegisterGame(Guid id, string xUser, string oUser)
+    {
+        activeGame = new Game(id, xUser, oUser);
+        canPlay = true;
+    }
 
     public void SetUserName(string username) => myUserName = username;
 
     public void DeleteActiveGame() => activeGame = null;
 
-    void Quit()
-    {
-        if (activeGame != null)
-        {
-            var req = new FinishGameRequest()
-            {
-                IsFinished = true
-            };
-
-            server.SendOnServer(req);
-        }
-    }
+    public void SetCanPlay(bool value) => canPlay = value;
 }

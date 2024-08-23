@@ -11,6 +11,7 @@ public class OnNewRoundHandler : IPacketHandler
 
     public void Handle(INetPacket packet, int connectionId)
     {
+        gameManager.SetCanPlay(true);
         gameManager.ActiveGame.ResetGame();
         OnNewRound?.Invoke();
     }

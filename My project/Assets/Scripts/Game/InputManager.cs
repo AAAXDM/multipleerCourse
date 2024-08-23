@@ -32,9 +32,8 @@ public class InputManager : MonoBehaviour
     {
         Vector2 pos = context.ReadValue<Vector2>();
         Ray ray = cam.ScreenPointToRay(pos);
-        Debug.Log("touch");
 
-        if (gameManager.IsMyTurn)
+        if (gameManager.IsMyTurn && gameManager.CanPlay)
         {
             RaycastHit2D hit = Physics2D.Raycast(ray.origin, Vector2.up);
             if (hit.collider != null)
