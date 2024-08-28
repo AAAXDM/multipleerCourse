@@ -25,27 +25,22 @@ namespace Srver.PacketHandlers
             var game = gamesManager.FindGame(userName);
             string opponent = game?.GetOpponent(userName);
             var opConnection = usersManager.GetConnection(opponent);
-            MarkOutcome mark;
             OnMarkCell rmsg;
-            string winner;
 
             if (msg.IsSurrendering)
             {
-                mark = MarkOutcome.Win;
                 rmsg = new OnMarkCell()
                 {
                     Actor = opponent,
-                    Outcome = mark
+                    Outcome = MarkOutcome.Win
                 };
-                winner = opponent;
+                SendRequest(connectionId, rmsg, opConnection, game, opponent);
             }
             else
             {
-                winner = userName;
                 if (Validate(msg.Cell.X, msg.Cell.Y, userName, game))
                 {
                     var result = game.MarkCell(msg.Cell.X, msg.Cell.Y);
-                    mark = result.MarkOutcome;
                     rmsg = new OnMarkCell()
                     {
                         Actor = userName,
@@ -53,33 +48,10 @@ namespace Srver.PacketHandlers
                         Outcome = result.MarkOutcome,
                         Result = result.WinResult
                     };
-                }
-                else
-                {
-                    mark = MarkOutcome.None;
-                    rmsg = new OnMarkCell()
-                    {
-                        Actor = userName,
-                        Outcome = MarkOutcome.None
-                    };
-                }
-            }
-            server.SendToClient(connectionId, rmsg);
-            if (opConnection != null)
-            {
-                server.SendToClient(opConnection.ConnectionId, rmsg);
-            }
-            
-            if (mark == MarkOutcome.None)
-            {
-                game?.SwitchPlayer();
-            }
-            if(mark == MarkOutcome.Win)
-            {
-                game.AddWin(winner);
-                usersManager.IncreaseScore(winner);
-            }
 
+                    SendRequest(connectionId,rmsg,opConnection,game, userName);
+                }
+            }
         }
 
         bool Validate(byte row,byte col, string userName,Game game)
@@ -90,6 +62,25 @@ namespace Srver.PacketHandlers
             }
 
             return true;
+        }
+
+        void SendRequest(int connectionId,OnMarkCell rmsg, ServerConnection opConnection,Game game ,string winner)
+        {
+            server.SendToClient(connectionId, rmsg);
+            if (opConnection != null)
+            {
+                server.SendToClient(opConnection.ConnectionId, rmsg);
+            }
+
+            if (rmsg.Outcome == MarkOutcome.None)
+            {
+                game?.SwitchPlayer();
+            }
+            if (rmsg.Outcome == MarkOutcome.Win)
+            {
+                game.AddWin(winner);
+                usersManager.IncreaseScore(winner);
+            }
         }
     }
 }
