@@ -23,6 +23,7 @@ public class SceneManagerInstaller : MonoInstaller<SceneManagerInstaller>
         Container.BindInterfacesAndSelfTo<OnMarkCellHandler>().AsSingle();
         Container.BindInterfacesAndSelfTo<FinishGameHandler>().AsSingle();
         Container.BindInterfacesAndSelfTo<OnNewRoundHandler>().AsSingle();
+        Container.BindInterfacesAndSelfTo<OnFindFailedHandler>().AsSingle();
         Container.Bind<Factory>().AsSingle().NonLazy();
     }
 }

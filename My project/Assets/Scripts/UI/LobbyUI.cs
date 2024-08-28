@@ -22,6 +22,7 @@ public class LobbyUI : MonoBehaviour
 
     void Start()
     {
+        OnFindFailedHandler.FindFaildEvent += FindFailedCallback;
         users = new ();
         logOutBtn.onClick.AddListener(LogOut);
         findOpponentBtn.onClick.AddListener(FindOpponent);
@@ -32,6 +33,7 @@ public class LobbyUI : MonoBehaviour
 
     void OnDestroy()
     {
+        OnFindFailedHandler.FindFaildEvent -= FindFailedCallback;
         logOutBtn?.onClick.RemoveListener(LogOut);
         findOpponentBtn?.onClick.RemoveListener(FindOpponent);
         stopButton?.onClick.RemoveListener(StopFindingOpponent);
@@ -88,5 +90,10 @@ public class LobbyUI : MonoBehaviour
             NeedToStop = true
         };
         client.SendOnServer(message);
+    }
+
+    void FindFailedCallback()
+    {
+        loadingContainer.SetActive(false);
     }
 }

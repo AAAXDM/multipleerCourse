@@ -41,24 +41,38 @@ namespace Srver.PacketHandlers
             }
             else
             {
-                Validate(msg.Cell.X, msg.Cell.Y, userName, game);
                 winner = userName;
-                var result = game.MarkCell(msg.Cell.X, msg.Cell.Y);
-                mark = result.MarkOutcome;
-                rmsg = new OnMarkCell()
+                if (Validate(msg.Cell.X, msg.Cell.Y, userName, game))
                 {
-                    Actor = userName,
-                    Cell = msg.Cell,
-                    Outcome = result.MarkOutcome,
-                    Result = result.WinResult
-                };
+                    var result = game.MarkCell(msg.Cell.X, msg.Cell.Y);
+                    mark = result.MarkOutcome;
+                    rmsg = new OnMarkCell()
+                    {
+                        Actor = userName,
+                        Cell = msg.Cell,
+                        Outcome = result.MarkOutcome,
+                        Result = result.WinResult
+                    };
+                }
+                else
+                {
+                    mark = MarkOutcome.None;
+                    rmsg = new OnMarkCell()
+                    {
+                        Actor = userName,
+                        Outcome = MarkOutcome.None
+                    };
+                }
             }
-            server.SendToClient(connectionId, rmsg);            
-            server.SendToClient(opConnection.ConnectionId, rmsg);
+            server.SendToClient(connectionId, rmsg);
+            if (opConnection != null)
+            {
+                server.SendToClient(opConnection.ConnectionId, rmsg);
+            }
             
             if (mark == MarkOutcome.None)
             {
-                game.SwitchPlayer();
+                game?.SwitchPlayer();
             }
             if(mark == MarkOutcome.Win)
             {
@@ -68,18 +82,14 @@ namespace Srver.PacketHandlers
 
         }
 
-        void Validate(byte row,byte col, string userName,Game game)
+        bool Validate(byte row,byte col, string userName,Game game)
         {
-            if(game.CurrentUser != userName)
+            if(game.CurrentUser != userName || game.Grid[row, col] != 0)
             {
-                throw new ArgumentException($"bad request actor {userName} is not the current user!");
+                return false;
             }
 
-
-            if (game.Grid[row,col] != 0)
-            {
-                throw new ArgumentException($"bad request cell at row {row} and column {col} is alredy marked!");
-            }
+            return true;
         }
     }
 }

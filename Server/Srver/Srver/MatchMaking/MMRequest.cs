@@ -1,16 +1,12 @@
-﻿using Microsoft.Identity.Client;
-using Server;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Server;
+
 
 namespace Srver
 {
     public class MMRequest
     {
         ServerConnection connection;
+        CancellationTokenSource cancellationToken;
         DateTime searchStart;
         bool matchFound;
 
@@ -25,5 +21,16 @@ namespace Srver
         }
 
         public void SetMatchFound(bool matchFound) => this.matchFound = matchFound;
+
+        public void SetCancellationTokenSource(CancellationTokenSource cancellationTokenSource) => cancellationToken = cancellationTokenSource;
+
+        public void Cancel()
+        {
+            if (cancellationToken != null)
+            {
+                cancellationToken.Cancel();
+                cancellationToken.Dispose();
+            }
+        }
     }
 }

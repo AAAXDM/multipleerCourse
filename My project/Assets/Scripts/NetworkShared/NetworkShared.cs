@@ -19,10 +19,11 @@ namespace NetworkShared
         OnAuthFailed = 101,
         OnServerStatus = 102,
         OnFindOpponent = 103,
-        OnStartGame = 104,
+        OnFindFaild = 104,
         OnMarkCell = 105,
         OnFinishGame = 106,
-        OnNewRound = 107
+        OnNewRound = 107,
+        OnStartGame = 108
         #endregion
     }
 

@@ -30,7 +30,7 @@ public class InputManager : MonoBehaviour
 
     void StartTouch(InputAction.CallbackContext context)
     {
-        Vector2 pos = context.ReadValue<Vector2>();
+        Vector2 pos = input.Touch.TouchPosition.ReadValue<Vector2>();
         Ray ray = cam.ScreenPointToRay(pos);
 
         if (gameManager.IsMyTurn && gameManager.CanPlay)

@@ -22,7 +22,7 @@ namespace Srver
             {
                 MMRequest request = new MMRequest(connection, DateTime.UtcNow);
                 pool.Add(request);
-                DoMatchMaking();
+                DoMatchMaking(request);
             }
         }
 
@@ -30,44 +30,41 @@ namespace Srver
         {
             MMRequest? request = pool.FirstOrDefault(x => x.Connection.User.UserName == username);
             if (request != null) 
-            { 
+            {
+                request.Cancel();
                 pool.Remove(request);
             }
         }
 
-        void DoMatchMaking()
+        async Task DoMatchMaking(MMRequest request)
         {
-            MMRequest? first = null;
-            MMRequest? second = null;
-
-            foreach(var request in pool)
+            CancellationTokenSource source = new CancellationTokenSource();
+            request.SetCancellationTokenSource(source);
+            await Task.Delay(4000,cancellationToken:source.Token);
+            MMRequest? match = pool.FirstOrDefault(x => !x.MatchFound && x.Connection.ConnectionId != request.Connection.ConnectionId);
+            if (match == null) 
             {
-                MMRequest? match = pool.FirstOrDefault(x => !x.MatchFound && x.Connection.ConnectionId != request.Connection.ConnectionId);
-                if (match == null) 
-                {
-                    continue;
-                }
-
-                request.SetMatchFound(true);
-                match.SetMatchFound(true);
-                Guid gameId = gamesManager.RegisterGame(request.Connection.User.UserName, match.Connection.User.UserName);
-                request.Connection.GameId  = gameId;
-                match.Connection.GameId = gameId;
-                first = request;
-                second = match;
-
-                OnStartGame onStartGame = new OnStartGame
-                {
-                    XUser = request.Connection.User.UserName,
-                    OUser = match.Connection.User.UserName,
-                    GameId = gameId,
-                };
-                pool.Remove(first);
-                pool.Remove(second);
-                server.SendToClient(request.Connection.ConnectionId, onStartGame);
-                server.SendToClient(match.Connection.ConnectionId, onStartGame);
-                break;
+                OnFindFailed onFindFailed = new();
+                pool.Remove(request);
+                server.SendToClient(request.Connection.ConnectionId, onFindFailed);
+                return;
             }
+
+            request.SetMatchFound(true);
+            match.SetMatchFound(true);
+            Guid gameId = gamesManager.RegisterGame(request.Connection.User.UserName, match.Connection.User.UserName);
+            request.Connection.GameId  = gameId;
+            match.Connection.GameId = gameId;
+            OnStartGame onStartGame = new OnStartGame
+            {
+                XUser = request.Connection.User.UserName,
+                OUser = match.Connection.User.UserName,
+                GameId = gameId,
+            };
+            pool.Remove(request);
+            pool.Remove(match);
+            server.SendToClient(request.Connection.ConnectionId, onStartGame);
+            server.SendToClient(match.Connection.ConnectionId, onStartGame);           
         }
     }
 }

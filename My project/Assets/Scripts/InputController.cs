@@ -29,34 +29,94 @@ public partial class @InputController: IInputActionCollection2, IDisposable
             ""actions"": [
                 {
                     ""name"": ""TouchInput"",
-                    ""type"": ""Value"",
+                    ""type"": ""Button"",
                     ""id"": ""12276576-86b5-4f31-b96e-61e372133a41"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""TouchPosition"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""60fbdb47-b208-427b-b178-c89a5f30dedd"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": true
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
                 {
                     ""name"": """",
                     ""id"": ""c28a0925-84cf-45a0-b6ae-64b1d918151b"",
-                    ""path"": ""<Touchscreen>/position"",
+                    ""path"": ""<Touchscreen>/primaryTouch/tap"",
                     ""interactions"": ""Press"",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Touch"",
                     ""action"": ""TouchInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d2404af7-a419-4899-af2c-fe35194a37eb"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Pc"",
+                    ""action"": ""TouchInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2b2643b1-756e-4261-a122-11c29d943bcc"",
+                    ""path"": ""<Touchscreen>/primaryTouch/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Touch"",
+                    ""action"": ""TouchPosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f0db928c-52aa-4e46-9190-321fae45afd8"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Pc"",
+                    ""action"": ""TouchPosition"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
             ]
         }
     ],
-    ""controlSchemes"": []
+    ""controlSchemes"": [
+        {
+            ""name"": ""Touch"",
+            ""bindingGroup"": ""Touch"",
+            ""devices"": []
+        },
+        {
+            ""name"": ""Pc"",
+            ""bindingGroup"": ""Pc"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Mouse>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
+        }
+    ]
 }");
         // Touch
         m_Touch = asset.FindActionMap("Touch", throwIfNotFound: true);
         m_Touch_TouchInput = m_Touch.FindAction("TouchInput", throwIfNotFound: true);
+        m_Touch_TouchPosition = m_Touch.FindAction("TouchPosition", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -119,11 +179,13 @@ public partial class @InputController: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Touch;
     private List<ITouchActions> m_TouchActionsCallbackInterfaces = new List<ITouchActions>();
     private readonly InputAction m_Touch_TouchInput;
+    private readonly InputAction m_Touch_TouchPosition;
     public struct TouchActions
     {
         private @InputController m_Wrapper;
         public TouchActions(@InputController wrapper) { m_Wrapper = wrapper; }
         public InputAction @TouchInput => m_Wrapper.m_Touch_TouchInput;
+        public InputAction @TouchPosition => m_Wrapper.m_Touch_TouchPosition;
         public InputActionMap Get() { return m_Wrapper.m_Touch; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -136,6 +198,9 @@ public partial class @InputController: IInputActionCollection2, IDisposable
             @TouchInput.started += instance.OnTouchInput;
             @TouchInput.performed += instance.OnTouchInput;
             @TouchInput.canceled += instance.OnTouchInput;
+            @TouchPosition.started += instance.OnTouchPosition;
+            @TouchPosition.performed += instance.OnTouchPosition;
+            @TouchPosition.canceled += instance.OnTouchPosition;
         }
 
         private void UnregisterCallbacks(ITouchActions instance)
@@ -143,6 +208,9 @@ public partial class @InputController: IInputActionCollection2, IDisposable
             @TouchInput.started -= instance.OnTouchInput;
             @TouchInput.performed -= instance.OnTouchInput;
             @TouchInput.canceled -= instance.OnTouchInput;
+            @TouchPosition.started -= instance.OnTouchPosition;
+            @TouchPosition.performed -= instance.OnTouchPosition;
+            @TouchPosition.canceled -= instance.OnTouchPosition;
         }
 
         public void RemoveCallbacks(ITouchActions instance)
@@ -160,8 +228,27 @@ public partial class @InputController: IInputActionCollection2, IDisposable
         }
     }
     public TouchActions @Touch => new TouchActions(this);
+    private int m_TouchSchemeIndex = -1;
+    public InputControlScheme TouchScheme
+    {
+        get
+        {
+            if (m_TouchSchemeIndex == -1) m_TouchSchemeIndex = asset.FindControlSchemeIndex("Touch");
+            return asset.controlSchemes[m_TouchSchemeIndex];
+        }
+    }
+    private int m_PcSchemeIndex = -1;
+    public InputControlScheme PcScheme
+    {
+        get
+        {
+            if (m_PcSchemeIndex == -1) m_PcSchemeIndex = asset.FindControlSchemeIndex("Pc");
+            return asset.controlSchemes[m_PcSchemeIndex];
+        }
+    }
     public interface ITouchActions
     {
         void OnTouchInput(InputAction.CallbackContext context);
+        void OnTouchPosition(InputAction.CallbackContext context);
     }
 }

@@ -16,6 +16,7 @@ public class LoginUi : MonoBehaviour
     [SerializeField] ButtonText registerButton;
     [SerializeField] ButtonText actionButton;
     [SerializeField] Button backButton;
+    [SerializeField] Button quitButton;
     [SerializeField] TMP_InputField usernameInput;
     [SerializeField] TMP_InputField passwordInput;
     [SerializeField] GameObject userNameError;
@@ -37,6 +38,7 @@ public class LoginUi : MonoBehaviour
         usernameInput.onValueChanged.AddListener(UpdateUsername);
         passwordInput.onValueChanged.AddListener(UpdatePassword);
         backButton.onClick.AddListener(GoBack);
+        quitButton.onClick.AddListener(Quit);
         actionButton.Button.onClick.AddListener(Login);
         loginButton.Button.onClick.AddListener(ActivateLoginWindow);
         registerButton.Button.onClick.AddListener(ActivateRegisterWindow);
@@ -46,7 +48,8 @@ public class LoginUi : MonoBehaviour
     }
 
     void OnDestroy()
-    { 
+    {
+        quitButton.onClick.RemoveListener(Quit);
         usernameInput.onValueChanged.RemoveListener(UpdateUsername);
         passwordInput.onValueChanged.RemoveListener(UpdatePassword);
         loginButton.Button.onClick.RemoveListener(ActivateLoginWindow);
@@ -116,6 +119,8 @@ public class LoginUi : MonoBehaviour
     void ValidateAndUpdateUI() => actionButton.Button.interactable = userNameValidate && passwordValidate;
 
     void Connect() => isConnected = true;
+
+    void Quit() => Application.Quit();
 
     async UniTask LoginAsync()
     {

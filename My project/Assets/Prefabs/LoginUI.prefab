@@ -2784,7 +2784,7 @@ GameObject:
   - component: {fileID: 612045498627250511}
   - component: {fileID: 5588206152640095988}
   m_Layer: 5
-  m_Name: LogiUI
+  m_Name: LoginUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2891,6 +2891,7 @@ MonoBehaviour:
   registerButton: {fileID: 8066985309040375086}
   actionButton: {fileID: 4302832440221242269}
   backButton: {fileID: 5378563809007778626}
+  quitButton: {fileID: 8463271974592380995}
   usernameInput: {fileID: 6074185366790494014}
   passwordInput: {fileID: 6762269662396879064}
   userNameError: {fileID: 5391886370980325137}
