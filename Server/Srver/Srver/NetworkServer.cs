@@ -139,21 +139,24 @@ namespace Server
         void SendFinishGame(int connectionId)
         {
             var connection = usersManager.GetConnection(connectionId);
-            var userName = connection.User.UserName;
-            if (!gamesManager.GameExists(userName)) return;
-            INetPacket rmsg;
-            var game = gamesManager.FindGame(userName);
-            var opConnection = GetOpponentConnection(userName, game);
-            gamesManager.CloseGame(game);
-
-            rmsg = new OnFinishGame()
+            if (connection.User != null)
             {
-                IsFinished = true
-            };
+                var userName = connection.User.UserName;
+                if (!gamesManager.GameExists(userName)) return;
+                INetPacket rmsg;
+                var game = gamesManager.FindGame(userName);
+                var opConnection = GetOpponentConnection(userName, game);
+                gamesManager.CloseGame(game);
 
-            if (opConnection != null)
-            {
-                SendToClient(opConnection.ConnectionId, rmsg);
+                rmsg = new OnFinishGame()
+                {
+                    IsFinished = true
+                };
+
+                if (opConnection != null)
+                {
+                    SendToClient(opConnection.ConnectionId, rmsg);
+                }
             }
         }
 

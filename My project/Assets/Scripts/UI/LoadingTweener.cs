@@ -6,11 +6,17 @@ public class LoadingTweener : MonoBehaviour
     [SerializeField] float fadeTime;
     [SerializeField] Vector3 smallSize;
 
+    int id;
     void OnEnable()
     {
         LeanTween.scale(gameObject, Vector3.one, 0);
-        LeanTween.scale(gameObject, smallSize, fadeTime).setDelay(delay)
+        id  = LeanTween.scale(gameObject, smallSize, fadeTime).setDelay(delay)
             .setEase(LeanTweenType.easeInOutCirc)
-            .setLoopPingPong();
+            .setLoopPingPong().id;
+    }
+
+    void OnDisable()
+    {
+        LeanTween.cancel(id);
     }
 }
